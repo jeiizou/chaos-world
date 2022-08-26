@@ -1,0 +1,19 @@
+{
+    "name": "cool-hook",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "build": "node ./esbuild.run.cjs"
+    },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.17",
+        "@types/react-dom": "^18.0.6",
+        "esbuild": "^0.15.5",
+        "typescript": "^4.6.4"
+    }
+}
