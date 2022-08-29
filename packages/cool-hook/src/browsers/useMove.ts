@@ -1,54 +1,55 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { RefObject, useState } from 'react';
+import { useThrottleFn } from '../functional/useThrottle';
+
+type TargetDom = RefObject<HTMLElement>;
 
 export interface UseMoveConfig {
-    container: HTMLElement | string;
-    handle: HTMLElement | string;
+    defaultPosition: [number, number];
 }
 
-function getTarget(target: HTMLElement | string): HTMLElement | null {
-    if (typeof target === 'string') {
-        const domTarget = document.querySelector(target);
-        if (!domTarget) {
-            console.warn('[cool-hooks]:', 'no target element');
+export function useMove({ defaultPosition }: UseMoveConfig) {
+    const [isMoving, setIsMoving] = useState(false);
+    const [isStart, setIsStart] = useState(false);
+
+    const [startPosition, setStartPosition] = useState([0, 0]);
+
+    const [moveStartPosition, setMoveStartPosition] = useState(defaultPosition);
+    const [currentPosition, setCurrentPosition] = useState(defaultPosition);
+
+    const startMoving = (ev: React.MouseEvent) => {
+        setIsMoving(true);
+        if (!isStart) {
+            console.log('start moving');
+            setStartPosition([ev.clientX, ev.clientY]);
+            setIsStart(true);
         }
-        return domTarget as HTMLElement;
-    } else {
-        return target;
-    }
-}
-
-export function useMove(config: UseMoveConfig) {
-    const [position, serPosition] = useState([0, 0]);
-
-    const containerHandler = useMemo(
-        () => getTarget(config.container),
-        [config.container],
-    );
-
-    const handleHandler = useMemo(
-        () => getTarget(config.handle),
-        [config.container],
-    );
-
-    const startMove = () => {
-        console.log('mouse down !');
     };
 
-    const endMove = () => {
-        console.log('mouse up !');
+    const moving = (ev: React.MouseEvent) => {
+        if (isMoving) {
+            let offsetX = ev.clientX - startPosition[0];
+            let offsetY = ev.clientY - startPosition[1];
+
+            console.log('moving', moveStartPosition, offsetX, offsetY);
+
+            setCurrentPosition([
+                moveStartPosition[0] + offsetX,
+                moveStartPosition[1] + offsetY,
+            ]);
+        }
     };
 
-    useEffect(() => {
-        handleHandler?.addEventListener('mousedown', startMove);
-        handleHandler?.addEventListener('mouseup', endMove);
-
-        return () => {
-            handleHandler?.removeEventListener('mousedown', startMove);
-            handleHandler?.removeEventListener('mouseup', endMove);
-        };
-    }, [containerHandler, handleHandler]);
+    const endMoving = () => {
+        if (isMoving) {
+            setMoveStartPosition(currentPosition);
+            setIsMoving(false);
+        }
+    };
 
     return {
-        position,
+        startMoving,
+        moving,
+        endMoving,
+        position: currentPosition,
     };
 }
