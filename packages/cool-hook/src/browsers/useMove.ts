@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from 'react';
+import React, { RefObject, useRef, useState } from 'react';
 import { useThrottleFn } from '../functional/useThrottle';
 
 type TargetDom = RefObject<HTMLElement>;
@@ -11,37 +11,38 @@ export function useMove({ defaultPosition }: UseMoveConfig) {
     const [isMoving, setIsMoving] = useState(false);
     const [isStart, setIsStart] = useState(false);
 
-    const [startPosition, setStartPosition] = useState([0, 0]);
+    const positions = useRef([0, 0, 0, 0]);
 
-    const [moveStartPosition, setMoveStartPosition] = useState(defaultPosition);
-    const [currentPosition, setCurrentPosition] = useState(defaultPosition);
+    const [curPosition, setCurPosition] = useState(defaultPosition);
 
     const startMoving = (ev: React.MouseEvent) => {
         setIsMoving(true);
         if (!isStart) {
-            console.log('start moving');
-            setStartPosition([ev.clientX, ev.clientY]);
+            positions.current[2] = ev.clientX;
+            positions.current[3] = ev.clientY;
             setIsStart(true);
         }
     };
 
     const moving = (ev: React.MouseEvent) => {
         if (isMoving) {
-            let offsetX = ev.clientX - startPosition[0];
-            let offsetY = ev.clientY - startPosition[1];
+            positions.current[0] = positions.current[2] - ev.clientX;
+            positions.current[1] = positions.current[3] - ev.clientY;
 
-            console.log('moving', moveStartPosition, offsetX, offsetY);
+            positions.current[2] = ev.clientX;
+            positions.current[3] = ev.clientY;
 
-            setCurrentPosition([
-                moveStartPosition[0] + offsetX,
-                moveStartPosition[1] + offsetY,
-            ]);
+            setCurPosition(p => {
+                return [
+                    p[0] - positions.current[0],
+                    p[1] - positions.current[1],
+                ];
+            });
         }
     };
 
     const endMoving = () => {
         if (isMoving) {
-            setMoveStartPosition(currentPosition);
             setIsMoving(false);
         }
     };
@@ -50,6 +51,6 @@ export function useMove({ defaultPosition }: UseMoveConfig) {
         startMoving,
         moving,
         endMoving,
-        position: currentPosition,
+        position: curPosition,
     };
 }

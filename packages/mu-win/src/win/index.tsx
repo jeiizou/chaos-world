@@ -12,11 +12,6 @@ export default function Win({ children }: WinProps): React.ReactElement {
     const { startMoving, moving, endMoving, position } = useMove({
         defaultPosition: [0, 0],
     });
-
-    useEffect(() => {
-        console.log('position', position);
-    }, [position]);
-
     return (
         <div
             style={{ left: position[0], top: position[1] }}
