@@ -1,7 +1,7 @@
 import { throttle, ThrottleSettings } from 'lodash-es';
 import { useMemo } from 'react';
-import { useLatest } from './useLatest';
-import { useUnmount } from './useUnmount';
+import { useLatest } from '../basic/useLatest';
+import { useUnmount } from '../basic/useUnmount';
 
 type noop = (...args: any) => any;
 

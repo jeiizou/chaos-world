@@ -17,7 +17,7 @@ export default function Win({ children }: WinProps): React.ReactElement {
             style={{ left: position[0], top: position[1] }}
             className={styles.win}
             ref={domHandle}
-            onMouseLeave={endMoving}
+            // onMouseLeave={endMoving}
             onMouseUp={endMoving}
             onMouseMove={moving}>
             <div onMouseDown={startMoving} className={styles.winHeader}></div>
