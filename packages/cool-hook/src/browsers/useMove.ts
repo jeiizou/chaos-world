@@ -1,4 +1,4 @@
-import React, { RefObject, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { useSmoothFn } from '../functional/useSmoothFn';
 import { useThrottleFn } from '../functional/useThrottleFn';
 
@@ -10,13 +10,14 @@ export interface UseMoveConfig {
 
 /**
  * 拖拽dom移动
- * 1. 拖动太快的时候会丢失
- * 2. 拖动边界
  * @param param0
  * @returns
  */
 export function useMove({ defaultPosition }: UseMoveConfig) {
     const [isMoving, setIsMoving] = useState(false);
+    const [boundingBox, setBoundingBox] = useState<
+        [number, number, number, number]
+    >([0, 0, 0, 0]);
 
     const positions = useRef([0, 0, 0, 0]);
 
@@ -37,11 +38,15 @@ export function useMove({ defaultPosition }: UseMoveConfig) {
             positions.current[3] = ev.clientY;
 
             setCurPosition(p => {
-                const newPosition = [
-                    p[0] - positions.current[0],
-                    p[1] - positions.current[1],
-                ] as [number, number];
-                return newPosition;
+                let xOffset = p[0] - positions.current[0];
+                xOffset = Math.max(boundingBox[0], xOffset);
+                xOffset = Math.min(boundingBox[2], xOffset);
+
+                let yOffset = p[1] - positions.current[1];
+                yOffset = Math.max(boundingBox[1], yOffset);
+                yOffset = Math.min(boundingBox[3], yOffset);
+
+                return [xOffset, yOffset] as [number, number];
             });
         }
     });
@@ -56,6 +61,7 @@ export function useMove({ defaultPosition }: UseMoveConfig) {
         startMoving,
         moving,
         endMoving,
+        setBoundingBox,
         position: curPosition,
     };
 }

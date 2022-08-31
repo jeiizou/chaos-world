@@ -10,3 +10,4 @@ export { useUnmount } from './basic/useUnmount';
 export { useDebounceFn } from './functional/useDebounce';
 export { useThrottleFn } from './functional/useThrottleFn';
 export { useSmoothFn } from './functional/useSmoothFn';
+export { useEvent, Event } from './functional/useEvent';
