@@ -5,6 +5,7 @@ export type { UseMoveConfig } from './browsers/useMove';
 // basic
 export { useLatest } from './basic/useLatest';
 export { useUnmount } from './basic/useUnmount';
+export { useMount } from './basic/useMount';
 
 // functional
 export { useDebounceFn } from './functional/useDebounce';

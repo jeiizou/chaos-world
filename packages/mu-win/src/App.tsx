@@ -1,20 +1,23 @@
 import './App.css';
 
-import Win from './win';
-import Box from './win/box';
+import Boxer from './components/boxer';
+import Container from './components/container';
 
 function App() {
     return (
-        <Box>
-            <>
-                <Win title='11'>
-                    <span>Win1</span>
-                </Win>
-                <Win title='11'>
-                    <span>Win1</span>
-                </Win>
-            </>
-        </Box>
+        <>
+            <Container>
+                <Boxer title='Win1'>
+                    <span>Win1-Content</span>
+                </Boxer>
+                <Boxer title='Win2' defaultPosition={[10, 10]}>
+                    <span>Win2-ContentContentContentContent</span>
+                </Boxer>
+                <Boxer title='Win3' defaultPosition={[20, 20]}>
+                    <span>Win3</span>
+                </Boxer>
+            </Container>
+        </>
     );
 }
 

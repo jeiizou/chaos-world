@@ -1,0 +1,49 @@
+.win {
+    position: absolute;
+    border-radius: 3px;
+    min-width: 200px;
+    background-color: #fff;
+}
+
+.winHeader {
+    background-color: #aaa;
+    height: 20px;
+    width: 100%;
+}
+
+.winBody {
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-top: 0;
+    // overflow: auto;
+    position: relative;
+
+    &::after {
+        $size: 8px;
+
+        content: '';
+        display: inline-block;
+        width: $size;
+        height: $size;
+        background-color: red;
+        position: absolute;
+        bottom: -$size/2;
+        right: -$size/2;
+        cursor: nwse-resize;
+    }
+}
+
+.moving {
+    user-select: none !important;
+}
+
+.active {
+    .winHeader {
+        background-color: #40a9ff;
+    }
+
+    .winBody {
+        border: 1px solid #40a9ff;
+        border-top: 0;
+    }
+}
