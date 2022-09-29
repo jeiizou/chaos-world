@@ -27,8 +27,8 @@
         height: $size;
         background-color: red;
         position: absolute;
-        bottom: -$size/2;
-        right: -$size/2;
+        bottom: 0;
+        right: 0;
         cursor: nwse-resize;
     }
 }
