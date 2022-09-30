@@ -1,0 +1,39 @@
+.box {
+    position: relative;
+    border: 1px solid #eee;
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+
+    transform: translate(0, 0);
+}
+
+.box__top-tool {
+    padding: 3px;
+    background: #eee;
+    margin-bottom: 3px;
+}
+
+.free-layout__outer {
+    width: 500px;
+    height: 500px;
+}
+
+.free-layout__docker {
+    display: flex;
+    padding: 5px 0px;
+    background-color: #eee;
+    .free-layout__docker__item {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin: 0 3px;
+        font-size: 12px;
+        cursor: pointer;
+
+        &--active {
+            background-color: #40a9ff;
+            color: #fff;
+        }
+    }
+}

@@ -1,17 +1,16 @@
-import { Container } from './container';
+import { FreeLayout } from './free-layout';
 import { nanoid } from 'nanoid';
 
-export class Boxer {
+export class Window {
     public id: string;
-    private container: Container | null = null;
+    private container: FreeLayout | null = null;
 
     constructor(private dom: HTMLDivElement) {
         this.id = nanoid();
     }
 
-    register(container: Container) {
+    register(container: FreeLayout) {
         container.addWindow(this);
-
         this.container = container;
     }
 

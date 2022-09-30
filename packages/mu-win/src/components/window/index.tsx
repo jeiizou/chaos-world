@@ -8,10 +8,10 @@ import React, {
 } from 'react';
 import styles from './index.module.scss';
 import { useMove } from '@x-pro/cool-hook';
-import { ContainerContext } from '../container/container-context';
-import { Boxer } from '../model/boxer';
-import { useMount } from 'ahooks';
+import { ContainerContext } from '../free-layout/container-context';
 import { styleMap } from '../../utils/just-js';
+import { nanoid } from 'nanoid';
+import { useSize } from 'ahooks';
 
 type WinProps = {
     children: ReactNode | ReactNode[];
@@ -19,22 +19,20 @@ type WinProps = {
     defaultPosition?: [number, number];
 };
 
-export default function BoxerCpt({
+export default function WindowComponent({
     children,
     defaultPosition = [0, 0],
     title,
 }: WinProps): React.ReactElement {
     // dom ref
     const domHandle = useRef<HTMLDivElement>(null);
-
-    const boxerRef = useRef<Boxer>();
-
-    const { boundingBox, event, container } = useContext(ContainerContext);
-
+    // context
+    const { boundingBox, event, zlevelArr = [] } = useContext(ContainerContext);
+    // state
     const [isMoving, setIsMoving] = useState(false);
-    const [level, setLevel] = useState(0);
     const [isActive, setIsActive] = useState(false);
-
+    const [id] = useState(`${title}:${nanoid(6)}`);
+    // hooks
     const {
         startMoving,
         moving,
@@ -46,11 +44,14 @@ export default function BoxerCpt({
         defaultPosition: defaultPosition,
     });
 
+    const size = useSize(domHandle);
+
+    // effects
     useEffect(() => {
         // set move position
         setBoundingBox([
-            boundingBox[0] - (domHandle.current?.clientWidth ?? 0),
-            boundingBox[1] - (domHandle.current?.clientHeight ?? 0),
+            boundingBox[0] - (size?.width || 0),
+            boundingBox[1] - (size?.height || 0),
             boundingBox[2],
             boundingBox[3],
         ]);
@@ -65,33 +66,60 @@ export default function BoxerCpt({
             case 'moving':
                 moving(val.ev);
                 break;
-            case 'focus':
-                let level = boxerRef.current?.level ?? 0;
-                setLevel(level);
-                const isActive = val.activeId === boxerRef.current?.id;
+            case 'win:focus':
+                const isActive = val.id === id;
                 setIsActive(isActive);
                 break;
-            case 'sort':
-            // position set
+            case 'layout:sort':
+                const position = val.position[id];
+                position && setPosition(position);
             default:
                 break;
         }
     });
 
-    useMount(() => {
-        if (domHandle.current && container?.current) {
-            let boxer = new Boxer(domHandle.current);
-            boxer.register(container?.current);
-            boxerRef.current = boxer;
+    // function
+    const focusCurrent = () => {
+        event?.emit({
+            type: 'win:focus',
+            id: id,
+        });
+    };
+
+    useEffect(() => {
+        setTimeout(() => {
+            event?.emit({
+                type: 'win:regis',
+                id: id,
+                title: title,
+            });
+        }, 0);
+    }, []);
+
+    const winLevel = useMemo(() => {
+        let index = zlevelArr?.indexOf(id);
+        if (~index) {
+            return zlevelArr?.length - index;
         }
-    });
+        return undefined;
+    }, [zlevelArr, id]);
+
+    useEffect(() => {
+        if (size) {
+            event?.emit({
+                type: 'win:resize',
+                id: id,
+                size: { ...size },
+            });
+        }
+    }, [size]);
 
     return (
         <div
             style={{
                 left: position[0],
                 top: position[1],
-                zIndex: level,
+                zIndex: winLevel,
                 maxWidth: boundingBox[2] - 2 || undefined,
                 maxHeight: boundingBox[3] - 2 || undefined,
             }}
@@ -102,20 +130,19 @@ export default function BoxerCpt({
             })}
             ref={domHandle}
             onMouseUp={endMoving}
-            onMouseDown={() => {
-                boxerRef.current?.focus();
-                event?.emit({
-                    type: 'focus',
-                    activeId: boxerRef.current?.id,
-                });
-            }}>
+            onMouseDown={focusCurrent}>
             <div
                 onMouseDown={e => {
                     setIsMoving(true);
                     startMoving?.(e);
                 }}
                 className={styles.winHeader}>
-                {title}
+                <span>{title}</span>
+                <span>
+                    <span>+</span>
+                    <span>-</span>
+                    <span>x</span>
+                </span>
             </div>
             <div className={styles.winBody}>
                 {Array.isArray(children) ? <>{children}</> : children}

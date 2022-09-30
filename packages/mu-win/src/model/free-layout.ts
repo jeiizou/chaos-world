@@ -1,13 +1,13 @@
-import { Boxer } from './boxer';
+import { Window } from './window';
 
-export class Container {
-    private windows: Boxer[] = [];
+export class FreeLayout {
+    private windows: Window[] = [];
     // boxer id list
-    private zLevel: string[] = [];
+    public zLevel: string[] = [];
 
     constructor(private dom: HTMLDivElement) {}
 
-    addWindow(window: Boxer): void {
+    addWindow(window: Window): void {
         this.windows.push(window);
         this.zLevel.push(window.id);
     }
@@ -16,7 +16,7 @@ export class Container {
         return [0, 0, this.dom.clientWidth || 0, this.dom.clientHeight || 0];
     }
 
-    focus(box: Boxer): void {
+    focus(box: Window): void {
         const { id } = box;
         let index = this.zLevel.indexOf(id);
 
@@ -28,12 +28,13 @@ export class Container {
         this.zLevel.unshift(id);
     }
 
-    getLevel(box: Boxer): number {
+    getLevel(box: Window): number {
         const { id } = box;
         return this.zLevel.length - this.zLevel.indexOf(id);
     }
 
     getWindows() {
+        console.log(this.windows);
         return this.windows;
     }
 }
