@@ -1,7 +1,13 @@
 .win {
     position: absolute;
     border-radius: 3px;
-    min-width: 200px;
+    min-width: 160px;
+    min-height: 70px;
+
+    resize: both;
+    overflow: auto;
+
+    border: 1px solid #aaa;
     background-color: #fff;
 }
 
@@ -9,28 +15,15 @@
     background-color: #aaa;
     height: 20px;
     width: 100%;
+    padding: 5px 0;
 }
 
 .winBody {
     padding: 10px;
-    border: 1px solid #aaa;
     border-top: 0;
-    // overflow: auto;
+    overflow: hidden;
     position: relative;
-
-    &::after {
-        $size: 8px;
-
-        content: '';
-        display: inline-block;
-        width: $size;
-        height: $size;
-        background-color: red;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        cursor: nwse-resize;
-    }
+    background-color: #fff;
 }
 
 .moving {
@@ -38,12 +31,9 @@
 }
 
 .active {
+    border: 1px solid #40a9ff;
+
     .winHeader {
         background-color: #40a9ff;
-    }
-
-    .winBody {
-        border: 1px solid #40a9ff;
-        border-top: 0;
     }
 }

@@ -5,13 +5,8 @@ export class Boxer {
     public id: string;
     private container: Container | null = null;
 
-    public width: number;
-    public height: number;
-
-    constructor(dom: HTMLDivElement) {
+    constructor(private dom: HTMLDivElement) {
         this.id = nanoid();
-        this.width = dom.clientWidth;
-        this.height = dom.clientHeight;
     }
 
     register(container: Container) {
@@ -22,6 +17,13 @@ export class Boxer {
 
     focus() {
         this.container?.focus(this);
+    }
+
+    getSize() {
+        return {
+            width: this.dom.clientWidth,
+            height: this.dom.clientHeight,
+        };
     }
 
     get level() {

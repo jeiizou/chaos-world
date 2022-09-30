@@ -57,6 +57,19 @@ export default function ContainerLayout({
         }
     }, []);
 
+    const sortBoxers = () => {
+        if (containerRef.current) {
+            console.log('sort');
+            let windows = containerRef.current.getWindows();
+            console.log('windows', windows);
+            windows.forEach(window => {
+                // console.log('window', window);
+                const size = window.getSize();
+                // console.log(size);
+            });
+        }
+    };
+
     return (
         <ContainerContext.Provider
             value={{
@@ -71,6 +84,9 @@ export default function ContainerLayout({
                 ref={containerDivRef}
                 className={styles.box}>
                 {Array.isArray(children) ? <>{children}</> : children}
+            </div>
+            <div>
+                <button onClick={sortBoxers}>sort</button>
             </div>
         </ContainerContext.Provider>
     );

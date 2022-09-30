@@ -11,7 +11,7 @@ function App() {
                     <span>Win1-Content</span>
                 </Boxer>
                 <Boxer title='Win2' defaultPosition={[10, 10]}>
-                    <span>Win2-ContentContentContentContent</span>
+                    <div>Win2-ContentContentContentContent</div>
                 </Boxer>
                 <Boxer title='Win3' defaultPosition={[20, 20]}>
                     <span>Win3</span>

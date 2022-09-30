@@ -34,20 +34,25 @@ export default function BoxerCpt({
     const [isMoving, setIsMoving] = useState(false);
     const [level, setLevel] = useState(0);
     const [isActive, setIsActive] = useState(false);
-    const [size, setSize] = useState([0, 0]);
 
-    const { startMoving, moving, endMoving, position, setBoundingBox } =
-        useMove({
-            defaultPosition: defaultPosition,
-        });
+    const {
+        startMoving,
+        moving,
+        endMoving,
+        position,
+        setBoundingBox,
+        setPosition,
+    } = useMove({
+        defaultPosition: defaultPosition,
+    });
 
     useEffect(() => {
         // set move position
         setBoundingBox([
-            boundingBox[0],
-            boundingBox[1],
-            boundingBox[2] - (domHandle.current?.clientWidth ?? 0),
-            boundingBox[3] - (domHandle.current?.clientHeight ?? 0),
+            boundingBox[0] - (domHandle.current?.clientWidth ?? 0),
+            boundingBox[1] - (domHandle.current?.clientHeight ?? 0),
+            boundingBox[2],
+            boundingBox[3],
         ]);
     }, [boundingBox]);
 
@@ -65,6 +70,9 @@ export default function BoxerCpt({
                 setLevel(level);
                 const isActive = val.activeId === boxerRef.current?.id;
                 setIsActive(isActive);
+                break;
+            case 'sort':
+            // position set
             default:
                 break;
         }
@@ -74,7 +82,6 @@ export default function BoxerCpt({
         if (domHandle.current && container?.current) {
             let boxer = new Boxer(domHandle.current);
             boxer.register(container?.current);
-            setSize([boxer.width, boxer.height]);
             boxerRef.current = boxer;
         }
     });
@@ -85,10 +92,8 @@ export default function BoxerCpt({
                 left: position[0],
                 top: position[1],
                 zIndex: level,
-                width: size[0] || undefined,
-                height: size[1] || undefined,
-                maxHeight: boundingBox[2],
-                maxWidth: boundingBox[3],
+                maxWidth: boundingBox[2] - 2 || undefined,
+                maxHeight: boundingBox[3] - 2 || undefined,
             }}
             className={styleMap({
                 [styles.win]: true,

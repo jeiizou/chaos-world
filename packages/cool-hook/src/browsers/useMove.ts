@@ -63,5 +63,6 @@ export function useMove({ defaultPosition }: UseMoveConfig) {
         endMoving,
         setBoundingBox,
         position: curPosition,
+        setPosition: setCurPosition
     };
 }

@@ -32,4 +32,8 @@ export class Container {
         const { id } = box;
         return this.zLevel.length - this.zLevel.indexOf(id);
     }
+
+    getWindows() {
+        return this.windows;
+    }
 }
