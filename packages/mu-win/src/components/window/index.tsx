@@ -114,6 +114,18 @@ export default function WindowComponent({
         }
     }, [size]);
 
+    const max = () => {
+        console.log('max');
+    };
+
+    const min = () => {
+        console.log('min');
+    };
+
+    const close = () => {
+        console.log('close');
+    };
+
     return (
         <div
             style={{
@@ -138,10 +150,16 @@ export default function WindowComponent({
                 }}
                 className={styles.winHeader}>
                 <span>{title}</span>
-                <span>
-                    <span>+</span>
-                    <span>-</span>
-                    <span>x</span>
+                <span className={styles.winIconGroup}>
+                    <span className={styles.winIconGroupItem} onClick={max}>
+                        +
+                    </span>
+                    <span className={styles.winIconGroupItem} onClick={min}>
+                        -
+                    </span>
+                    <span className={styles.winIconGroupItem} onClick={close}>
+                        x
+                    </span>
                 </span>
             </div>
             <div className={styles.winBody}>
