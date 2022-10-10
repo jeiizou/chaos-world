@@ -11,7 +11,7 @@ import { useMove } from '@x-pro/cool-hook';
 import { ContainerContext } from '../free-layout/container-context';
 import { styleMap } from '../../utils/just-js';
 import { nanoid } from 'nanoid';
-import { useSize } from 'ahooks';
+import { useDebounce, useSize } from 'ahooks';
 
 type WinProps = {
     children: ReactNode | ReactNode[];
@@ -27,11 +27,19 @@ export default function WindowComponent({
     // dom ref
     const domHandle = useRef<HTMLDivElement>(null);
     // context
-    const { boundingBox, event, zlevelArr = [] } = useContext(ContainerContext);
+    const {
+        boundingBox,
+        event,
+        zlevelArr = [],
+        windowMap,
+    } = useContext(ContainerContext);
     // state
     const [isMoving, setIsMoving] = useState(false);
     const [isActive, setIsActive] = useState(false);
-    const [id] = useState(`${title}:${nanoid(6)}`);
+
+    const id = useMemo(() => `${title}:${nanoid(6)}`, [title]);
+    const windowInfo = useMemo(() => windowMap?.[id], [id, windowMap]);
+
     // hooks
     const {
         startMoving,
@@ -45,17 +53,18 @@ export default function WindowComponent({
     });
 
     const size = useSize(domHandle);
+    const debouncedSize = useDebounce(size, { wait: 200 });
 
     // effects
     useEffect(() => {
         // set move position
         setBoundingBox([
-            boundingBox[0] - (size?.width || 0),
-            boundingBox[1] - (size?.height || 0),
+            boundingBox[0] - (debouncedSize?.width || 0),
+            boundingBox[1] - (debouncedSize?.height || 0),
             boundingBox[2],
             boundingBox[3],
         ]);
-    }, [boundingBox]);
+    }, [boundingBox, debouncedSize]);
 
     event?.useSubscription(val => {
         switch (val.type) {
@@ -86,6 +95,14 @@ export default function WindowComponent({
         });
     };
 
+    const winLevel = useMemo(() => {
+        let index = zlevelArr?.indexOf(id);
+        if (~index) {
+            return zlevelArr?.length - index;
+        }
+        return undefined;
+    }, [zlevelArr, id]);
+
     useEffect(() => {
         setTimeout(() => {
             event?.emit({
@@ -96,37 +113,39 @@ export default function WindowComponent({
         }, 0);
     }, []);
 
-    const winLevel = useMemo(() => {
-        let index = zlevelArr?.indexOf(id);
-        if (~index) {
-            return zlevelArr?.length - index;
-        }
-        return undefined;
-    }, [zlevelArr, id]);
-
     useEffect(() => {
-        if (size) {
+        if (debouncedSize) {
             event?.emit({
                 type: 'win:resize',
                 id: id,
-                size: { ...size },
+                size: { ...debouncedSize },
             });
         }
-    }, [size]);
+    }, [debouncedSize]);
 
     const max = () => {
-        console.log('max');
+        if (domHandle.current) {
+            domHandle.current.style.width = `${boundingBox[2] - 2}px`;
+            domHandle.current.style.height = `${boundingBox[3] - 2}px`;
+            setPosition([0, 0]);
+        }
     };
 
     const min = () => {
-        console.log('min');
+        event?.emit({
+            type: 'win:min',
+            id: id,
+        });
     };
 
     const close = () => {
-        console.log('close');
+        event?.emit({
+            type: 'win:close',
+            id: id,
+        });
     };
 
-    return (
+    return windowInfo ? (
         <div
             style={{
                 left: position[0],
@@ -134,6 +153,7 @@ export default function WindowComponent({
                 zIndex: winLevel,
                 maxWidth: boundingBox[2] - 2 || undefined,
                 maxHeight: boundingBox[3] - 2 || undefined,
+                display: windowInfo?.visible ? undefined : 'none',
             }}
             className={styleMap({
                 [styles.win]: true,
@@ -166,5 +186,7 @@ export default function WindowComponent({
                 {Array.isArray(children) ? <>{children}</> : children}
             </div>
         </div>
+    ) : (
+        <></>
     );
 }
