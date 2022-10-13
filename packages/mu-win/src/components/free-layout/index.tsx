@@ -1,9 +1,9 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useMemo, useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { ContainerContext } from './container-context';
 import { useEventEmitter, useSize } from 'ahooks';
-import { styleMap } from '../../utils/just-js';
 import { SizeType, SortCfgType, sortDomWithSize } from '../../utils/helper';
+import ActiveBar from '../active-bar';
 
 type ContainerProps = {
     children: ReactNode | ReactNode[];
@@ -96,7 +96,9 @@ export default function FreeLayoutComponent({
 
                 if (!windowMap[val.id].visible) {
                     setWindowMap(map => {
-                        map[val.id].visible = true;
+                        if (map[val.id]) {
+                            map[val.id].visible = true;
+                        }
                         return { ...map };
                     });
                 }
@@ -104,13 +106,17 @@ export default function FreeLayoutComponent({
                 return;
             case 'win:resize':
                 setWindowMap(map => {
-                    map[val.id].size = val.size;
+                    if (map[val.id]) {
+                        map[val.id].size = val.size;
+                    }
                     return { ...map };
                 });
                 return;
             case 'win:min':
                 setWindowMap(map => {
-                    map[val.id].visible = false;
+                    if (map[val.id]) {
+                        map[val.id].visible = false;
+                    }
                     return { ...map };
                 });
                 return;
@@ -157,15 +163,19 @@ export default function FreeLayoutComponent({
         <ContainerContext.Provider
             value={{
                 boundingBox,
-                event: event$,
+                event$,
                 zlevelArr,
                 windowMap,
+                activeWindowId,
             }}>
             <div className={styles['free-layout__outer']}>
                 <div className={styles['box__top-tool']}>
                     <button onClick={sortBoxers}>平铺</button>
                 </div>
                 <div
+                    style={{
+                        zIndex: 0,
+                    }}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
                     onMouseUp={onMouseLeave}
@@ -173,31 +183,7 @@ export default function FreeLayoutComponent({
                     className={styles.box}>
                     {Array.isArray(children) ? <>{children}</> : children}
                 </div>
-                <div className={styles['free-layout__docker']}>
-                    {Object.keys(windowMap).map(key => {
-                        return (
-                            <div
-                                className={styleMap({
-                                    [styles['free-layout__docker__item']]: true,
-                                    [styles[
-                                        'free-layout__docker__item--active'
-                                    ]]: activeWindowId === key,
-                                    [styles[
-                                        'free-layout__docker__item--hidden'
-                                    ]]: !windowMap[key].visible,
-                                })}
-                                key={key}
-                                onClick={() => {
-                                    event$?.emit({
-                                        type: 'win:focus',
-                                        id: key,
-                                    });
-                                }}>
-                                {windowMap[key].title}
-                            </div>
-                        );
-                    })}
-                </div>
+                <ActiveBar />
             </div>
         </ContainerContext.Provider>
     );

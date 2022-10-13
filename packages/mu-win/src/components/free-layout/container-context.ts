@@ -5,7 +5,7 @@ import { FreeLayout } from '../../model/free-layout';
 
 export type BoxContextType = {
     boundingBox: number[];
-    event?: EventEmitter<{
+    event$?: EventEmitter<{
         type: string;
         ev?: React.MouseEvent;
         [key: string]: any;
@@ -13,6 +13,7 @@ export type BoxContextType = {
     container?: React.MutableRefObject<FreeLayout | undefined>;
     zlevelArr?: string[];
     windowMap?: WindowMapType;
+    activeWindowId?: string;
 };
 
 export const ContainerContext = React.createContext<BoxContextType>({

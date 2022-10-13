@@ -13,6 +13,10 @@ import { styleMap } from '../../utils/just-js';
 import { nanoid } from 'nanoid';
 import { useDebounce, useSize } from 'ahooks';
 
+import addSvg from '../../assets/add.svg';
+import closeSvg from '../../assets/close.svg';
+import minusSvg from '../../assets/minus.svg';
+
 type WinProps = {
     children: ReactNode | ReactNode[];
     title?: string;
@@ -29,13 +33,13 @@ export default function WindowComponent({
     // context
     const {
         boundingBox,
-        event,
+        event$,
         zlevelArr = [],
         windowMap,
+        activeWindowId,
     } = useContext(ContainerContext);
     // state
     const [isMoving, setIsMoving] = useState(false);
-    const [isActive, setIsActive] = useState(false);
 
     const id = useMemo(() => `${title}:${nanoid(6)}`, [title]);
     const windowInfo = useMemo(() => windowMap?.[id], [id, windowMap]);
@@ -66,7 +70,7 @@ export default function WindowComponent({
         ]);
     }, [boundingBox, debouncedSize]);
 
-    event?.useSubscription(val => {
+    event$?.useSubscription(val => {
         switch (val.type) {
             case 'leave':
                 setIsMoving(false);
@@ -74,10 +78,6 @@ export default function WindowComponent({
                 break;
             case 'moving':
                 moving(val.ev);
-                break;
-            case 'win:focus':
-                const isActive = val.id === id;
-                setIsActive(isActive);
                 break;
             case 'layout:sort':
                 const position = val.position[id];
@@ -89,7 +89,7 @@ export default function WindowComponent({
 
     // function
     const focusCurrent = () => {
-        event?.emit({
+        event$?.emit({
             type: 'win:focus',
             id: id,
         });
@@ -105,7 +105,7 @@ export default function WindowComponent({
 
     useEffect(() => {
         setTimeout(() => {
-            event?.emit({
+            event$?.emit({
                 type: 'win:regis',
                 id: id,
                 title: title,
@@ -115,7 +115,7 @@ export default function WindowComponent({
 
     useEffect(() => {
         if (debouncedSize) {
-            event?.emit({
+            event$?.emit({
                 type: 'win:resize',
                 id: id,
                 size: { ...debouncedSize },
@@ -132,14 +132,14 @@ export default function WindowComponent({
     };
 
     const min = () => {
-        event?.emit({
+        event$?.emit({
             type: 'win:min',
             id: id,
         });
     };
 
     const close = () => {
-        event?.emit({
+        event$?.emit({
             type: 'win:close',
             id: id,
         });
@@ -158,7 +158,7 @@ export default function WindowComponent({
             className={styleMap({
                 [styles.win]: true,
                 [styles.moving]: isMoving,
-                [styles.active]: isActive,
+                [styles.active]: activeWindowId === id,
             })}
             ref={domHandle}
             onMouseUp={endMoving}
@@ -171,14 +171,27 @@ export default function WindowComponent({
                 className={styles.winHeader}>
                 <span>{title}</span>
                 <span className={styles.winIconGroup}>
-                    <span className={styles.winIconGroupItem} onClick={max}>
-                        +
+                    <span
+                        style={{
+                            backgroundColor: 'var(--success-light-color)',
+                        }}
+                        className={styles.winIconGroupItem}
+                        onClick={max}>
+                        <img src={addSvg} alt='' />
                     </span>
-                    <span className={styles.winIconGroupItem} onClick={min}>
-                        -
+                    <span
+                        style={{
+                            backgroundColor: 'var(--warn-light-color)',
+                        }}
+                        className={styles.winIconGroupItem}
+                        onClick={min}>
+                        <img src={minusSvg} alt='' />
                     </span>
-                    <span className={styles.winIconGroupItem} onClick={close}>
-                        x
+                    <span
+                        style={{ backgroundColor: 'var(--error-light-color)' }}
+                        className={styles.winIconGroupItem}
+                        onClick={close}>
+                        <img src={closeSvg} alt='' />
                     </span>
                 </span>
             </div>
