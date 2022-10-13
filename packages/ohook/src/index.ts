@@ -6,6 +6,8 @@ export type { UseMoveConfig } from './browsers/useMove';
 export { useLatest } from './basic/useLatest';
 export { useUnmount } from './basic/useUnmount';
 export { useMount } from './basic/useMount';
+export { composeProviders, createModel } from './basic/useModel';
+export type { Model } from './basic/useModel';
 
 // functional
 export { useDebounceFn } from './functional/useDebounce';

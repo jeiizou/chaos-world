@@ -4,7 +4,7 @@ export type SizeType = {
 };
 
 export type SortCfgType = {
-    gutter: [number, number];
+    gutter: number[];
 };
 
 export function sortDomWithSize(

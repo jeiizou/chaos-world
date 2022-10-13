@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
+import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
 import { styleMap } from '../../utils/just-js';
-import { ContainerContext } from '../free-layout/container-context';
 import styles from './index.module.scss';
 
 type ActiveBarProps = {
@@ -8,12 +8,14 @@ type ActiveBarProps = {
 };
 
 export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
-    // context
     const {
-        event$,
-        windowMap = {},
+        windowMap,
+        containerSize,
+        subscribe$,
+        emit$,
+        zlevelArr,
         activeWindowId,
-    } = useContext(ContainerContext);
+    } = DesktopModel.useContext();
 
     return (
         <div className={styles['free-layout__docker']}>
@@ -29,8 +31,7 @@ export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
                         })}
                         key={key}
                         onClick={() => {
-                            event$?.emit({
-                                type: 'win:focus',
+                            emit$(EVENT_TYPE.WIN_FOCUS, {
                                 id: key,
                             });
                         }}>

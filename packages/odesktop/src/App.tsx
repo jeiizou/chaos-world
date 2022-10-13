@@ -1,24 +1,23 @@
 import './App.css';
 
 import Boxer from './components/window';
-import Container from './components/free-layout';
+import Container from './components/container';
+import Desktop from './components/desktop';
+
+const DESKTOP_DEFAULT_CONFIG = {
+    desktopStyle: {
+        backgroundImage: 'linear-gradient(315deg,#17ead9,#6078ea)',
+        backgroundSize: 'cover',
+    },
+};
 
 function App() {
     return (
-        <div id='app'>
+        <Desktop>
             <Container>
                 <Boxer title='Win1'>
                     <span>Win1-Content</span>
                 </Boxer>
-                {/* <Boxer title='Win2'>
-                    <span>Win2-Content</span>
-                </Boxer>
-                <Boxer title='Win3'>
-                    <span>Win3-Content</span>
-                </Boxer>
-                <Boxer title='Win4'>
-                    <span>Win4-Content</span>
-                </Boxer> */}
                 <Boxer title='Win5' defaultPosition={[10, 10]}>
                     <div>Win5-ContentContentContentContent</div>
                 </Boxer>
@@ -26,7 +25,7 @@ function App() {
                     <span>Win6</span>
                 </Boxer>
             </Container>
-        </div>
+        </Desktop>
     );
 }
 

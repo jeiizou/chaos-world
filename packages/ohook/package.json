@@ -3,9 +3,9 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "types": "dist/index.d.ts",
+    "types": "src/index.ts",
     "main": "dist/index.js",
-    "module": "dist/index.js",
+    "module": "src/index.ts",
     "scripts": {
         "build": "node ./esbuild.run.cjs && tsc --emitDeclarationOnly --outDir dist",
         "start": "cross-env WATCH=true concurrently -n es,tcs -c blue,red \"node ./esbuild.run.cjs\" \"tsc --emitDeclarationOnly --outDir dist --watch\""

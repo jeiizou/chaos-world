@@ -1,14 +1,6 @@
-import React, {
-    ReactNode,
-    useContext,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './index.module.scss';
-import { useMove } from '@x-pro/cool-hook';
-import { ContainerContext } from '../free-layout/container-context';
+import { useMove } from '@jeiiz/ohooks';
 import { styleMap } from '../../utils/just-js';
 import { nanoid } from 'nanoid';
 import { useDebounce, useSize } from 'ahooks';
@@ -16,6 +8,7 @@ import { useDebounce, useSize } from 'ahooks';
 import addSvg from '../../assets/add.svg';
 import closeSvg from '../../assets/close.svg';
 import minusSvg from '../../assets/minus.svg';
+import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
 
 type WinProps = {
     children: ReactNode | ReactNode[];
@@ -28,18 +21,22 @@ export default function WindowComponent({
     defaultPosition = [0, 0],
     title,
 }: WinProps): React.ReactElement {
+    const {
+        windowMap,
+        containerSize,
+        subscribe$,
+        emit$,
+        zlevelArr,
+        activeWindowId,
+    } = DesktopModel.useContext();
+
     // dom ref
     const domHandle = useRef<HTMLDivElement>(null);
-    // context
-    const {
-        boundingBox,
-        event$,
-        zlevelArr = [],
-        windowMap,
-        activeWindowId,
-    } = useContext(ContainerContext);
+
     // state
     const [isMoving, setIsMoving] = useState(false);
+    const size = useSize(domHandle);
+    const debouncedSize = useDebounce(size, { wait: 200 });
 
     const id = useMemo(() => `${title}:${nanoid(6)}`, [title]);
     const windowInfo = useMemo(() => windowMap?.[id], [id, windowMap]);
@@ -56,41 +53,35 @@ export default function WindowComponent({
         defaultPosition: defaultPosition,
     });
 
-    const size = useSize(domHandle);
-    const debouncedSize = useDebounce(size, { wait: 200 });
-
     // effects
     useEffect(() => {
-        // set move position
         setBoundingBox([
-            boundingBox[0] - (debouncedSize?.width || 0),
-            boundingBox[1] - (debouncedSize?.height || 0),
-            boundingBox[2],
-            boundingBox[3],
+            0,
+            0,
+            containerSize?.width ?? 0,
+            containerSize?.height ?? 0,
         ]);
-    }, [boundingBox, debouncedSize]);
+    }, [containerSize]);
 
-    event$?.useSubscription(val => {
-        switch (val.type) {
-            case 'leave':
-                setIsMoving(false);
-                endMoving();
-                break;
-            case 'moving':
-                moving(val.ev);
-                break;
-            case 'layout:sort':
-                const position = val.position[id];
-                position && setPosition(position);
-            default:
-                break;
+    subscribe$(EVENT_TYPE.CANVAS_LEAVE, val => {
+        setIsMoving(false);
+        endMoving();
+    });
+
+    subscribe$(EVENT_TYPE.CANVAS_MOVING, val => {
+        moving(val.ev);
+    });
+
+    subscribe$(EVENT_TYPE.WIN_SORT, val => {
+        if (windowInfo && val) {
+            const position = val.position[id];
+            position && setPosition(position);
         }
     });
 
     // function
     const focusCurrent = () => {
-        event$?.emit({
-            type: 'win:focus',
+        emit$(EVENT_TYPE.WIN_FOCUS, {
             id: id,
         });
     };
@@ -105,8 +96,7 @@ export default function WindowComponent({
 
     useEffect(() => {
         setTimeout(() => {
-            event$?.emit({
-                type: 'win:regis',
+            emit$(EVENT_TYPE.WIN_REGIS, {
                 id: id,
                 title: title,
             });
@@ -115,8 +105,7 @@ export default function WindowComponent({
 
     useEffect(() => {
         if (debouncedSize) {
-            event$?.emit({
-                type: 'win:resize',
+            emit$(EVENT_TYPE.WIN_RESIZE, {
                 id: id,
                 size: { ...debouncedSize },
             });
@@ -125,24 +114,22 @@ export default function WindowComponent({
 
     const max = () => {
         if (domHandle.current) {
-            domHandle.current.style.width = `${boundingBox[2] - 2}px`;
-            domHandle.current.style.height = `${boundingBox[3] - 2}px`;
+            domHandle.current.style.width = `${
+                containerSize?.width ?? 0 - 2
+            }px`;
+            domHandle.current.style.height = `${
+                containerSize?.height ?? 0 - 2
+            }px`;
             setPosition([0, 0]);
         }
     };
 
     const min = () => {
-        event$?.emit({
-            type: 'win:min',
-            id: id,
-        });
+        emit$(EVENT_TYPE.WIN_MIN, { id });
     };
 
     const close = () => {
-        event$?.emit({
-            type: 'win:close',
-            id: id,
-        });
+        emit$(EVENT_TYPE.WIN_CLOSE, { id });
     };
 
     return windowInfo ? (
@@ -151,8 +138,8 @@ export default function WindowComponent({
                 left: position[0],
                 top: position[1],
                 zIndex: winLevel,
-                maxWidth: boundingBox[2] - 2 || undefined,
-                maxHeight: boundingBox[3] - 2 || undefined,
+                maxWidth: (containerSize?.width ?? 0) - 2 || undefined,
+                maxHeight: (containerSize?.height ?? 0) - 2 || undefined,
                 display: windowInfo?.visible ? undefined : 'none',
             }}
             className={styleMap({
@@ -200,6 +187,6 @@ export default function WindowComponent({
             </div>
         </div>
     ) : (
-        <></>
+        <>unmounted</>
     );
 }
