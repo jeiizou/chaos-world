@@ -2,7 +2,6 @@ import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { useMove } from '@jeiiz/ohooks';
 import { styleMap } from '../../utils/just-js';
-import { nanoid } from 'nanoid';
 import { useDebounce, useSize } from 'ahooks';
 
 import addSvg from '../../assets/add.svg';

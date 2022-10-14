@@ -12,6 +12,7 @@ export enum EVENT_TYPE {
     WIN_FOCUS = 'win_focus',
     CANVAS_LEAVE = 'canvas_leave',
     CANVAS_MOVING = 'canvas_moving',
+    CANVAS_CLICK = 'canvas_click',
     BAR_SORT = 'bar_sort',
 }
 
@@ -157,6 +158,10 @@ export function useDesktop() {
             );
             emit$(EVENT_TYPE.WIN_POSITION, { positions });
         }
+    });
+
+    subscribe$(EVENT_TYPE.CANVAS_CLICK, () => {
+        setActiveWindowId(undefined);
     });
 
     return {

@@ -32,11 +32,20 @@ export default function ContainerComponent({
         });
     };
 
+    const onClick = (ev: React.MouseEvent) => {
+        if (ev.target === containerDom.current) {
+            emit$(EVENT_TYPE.CANVAS_CLICK, {
+                ev: ev,
+            });
+        }
+    };
+
     return (
         <div
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
             onMouseUp={onMouseLeave}
+            onClick={onClick}
             ref={containerDom}
             className={styles.box}>
             <>{children}</>
