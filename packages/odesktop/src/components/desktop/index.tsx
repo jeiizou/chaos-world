@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { DesktopModel } from '../../model/desktop-model';
 import Bar from '../bar';
+import Bootstrap from '../bootstrap';
 import Container from '../container';
 import ContextMenu from '../contextmenu';
 import Dock from '../dock';
@@ -15,14 +16,17 @@ export default function Desktop({
 }: DesktopProps): React.ReactElement {
     return (
         <DesktopModel.Provider>
-            <div className={styles.desktop}>
-                <Bar />
-                <Container>
-                    <>{children}</>
-                </Container>
-                <Dock />
+            <>
+                <div className={styles.desktop}>
+                    <Bar />
+                    <Container>
+                        <>{children}</>
+                    </Container>
+                    <Dock />
+                </div>
                 <ContextMenu />
-            </div>
+                <Bootstrap />
+            </>
         </DesktopModel.Provider>
     );
 }

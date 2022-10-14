@@ -3,19 +3,14 @@ import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
 import { styleMap } from '../../utils/just-js';
 import styles from './index.module.scss';
 
+import appSVG from '../../assets/app.svg';
+
 type ActiveBarProps = {
     // HOLD
 };
 
 export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
-    const {
-        windowMap,
-        containerSize,
-        subscribe$,
-        emit$,
-        zlevelArr,
-        activeWindowId,
-    } = DesktopModel.useContext();
+    const { windowMap, emit$, activeWindowId } = DesktopModel.useContext();
 
     return (
         <div className={styles['free-layout__docker']}>
@@ -35,7 +30,17 @@ export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
                                 id: key,
                             });
                         }}>
-                        {windowMap[key].title}
+                        <img
+                            src={appSVG}
+                            alt=''
+                            style={{
+                                width: 18,
+                                height: 18,
+                            }}
+                        />
+                        <div className={styles.item_title}>
+                            {windowMap[key].title}
+                        </div>
                     </div>
                 );
             })}

@@ -1,5 +1,6 @@
 import React from 'react';
 import LayoutSvg from '../../assets/layout.svg';
+import StartSvg from '../../assets/start.svg';
 import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
 import styles from './index.module.scss';
 
@@ -14,9 +15,12 @@ export default function Bar({}: BarProps): React.ReactElement {
         <div className={styles.bar}>
             <div
                 className={styles.btn}
-                onClick={() => {
-                    emit$(EVENT_TYPE.BAR_SORT);
-                }}>
+                onClick={() => emit$(EVENT_TYPE.APP_START)}>
+                <img src={StartSvg} alt='' />
+            </div>
+            <div
+                className={styles.btn}
+                onClick={() => emit$(EVENT_TYPE.BAR_SORT)}>
                 <img src={LayoutSvg} alt='' />
             </div>
         </div>

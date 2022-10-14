@@ -1,6 +1,6 @@
 .free-layout__docker {
     display: flex;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 12px;
     // transform: translateY(calc(-100% - 30px));
     margin: 10px auto;
@@ -14,16 +14,20 @@
     .free-layout__docker__item {
         border: 1px solid var(--default-color);
         background: #fff;
-        padding: 10px;
-        border-radius: 12px;
+        padding: 10px 12px;
+
         margin: 0 3px;
         font-size: 12px;
         cursor: pointer;
         position: relative;
 
+        height: 30px;
+        border-radius: 12px;
+
+        text-align: center;
+
         &--active {
             background-image: linear-gradient(315deg, #ec008c, #fc6767);
-            color: #fff;
         }
 
         &--hidden {
@@ -37,6 +41,14 @@
                 top: -2px;
                 right: -2px;
             }
+        }
+
+        .item_title {
+            max-width: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-top: -3px;
         }
     }
 }

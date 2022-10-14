@@ -1,17 +1,30 @@
 .btn {
-    $size: 24px;
+    $size: 34px;
     color: #fff;
     display: inline-flex;
     cursor: pointer;
     width: $size;
     height: $size;
     border-radius: calc($size / 2);
-    padding: 7px;
+    padding: 10px;
     box-sizing: border-box;
-    background-color: #fff;
+    // background-color: #fff;
+    position: relative;
 
     &:hover {
         background-image: linear-gradient(315deg, #ec008c, #fc6767);
+    }
+
+    & + & {
+        margin-left: 6px;
+
+        &::before {
+            color: #434343;
+            position: absolute;
+            content: '|';
+            left: -5px;
+            top: 6px;
+        }
     }
 }
 

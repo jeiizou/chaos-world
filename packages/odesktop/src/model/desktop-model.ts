@@ -14,6 +14,7 @@ export enum EVENT_TYPE {
     CANVAS_MOVING = 'canvas_moving',
     CANVAS_CLICK = 'canvas_click',
     BAR_SORT = 'bar_sort',
+    APP_START = 'app_start',
 }
 
 export type WindowMapType = Record<
