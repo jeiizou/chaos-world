@@ -1,0 +1,30 @@
+$size: 100px;
+
+.app-item {
+    width: $size;
+    height: $size;
+    border-radius: calc($size / 2);
+    background-color: rgba(#fff, 0.4);
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // padding: 10px;
+    color: #000;
+    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0 0 3px var(--default-color);
+
+    .app-item-icon {
+        width: calc($size / 2);
+        height: calc($size / 2);
+    }
+
+    &:hover {
+        background-image: linear-gradient(315deg, #ec008c, #fc6767);
+        background-size: cover;
+        box-shadow: 0 0 8px var(--default-color);
+    }
+}

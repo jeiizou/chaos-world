@@ -1,22 +1,23 @@
+import Desktop from './components/desktop';
+import { useDesktop } from './hooks/use-desktop';
+import { useEffect } from 'react';
 import './App.css';
 
-import Window from './components/window';
-import Desktop from './components/desktop';
-
 function App() {
-    return (
-        <Desktop>
-            <Window title='Win1' id='win1'>
-                <span>Win1-Content</span>
-            </Window>
-            <Window title='Win5' defaultPosition={[10, 10]} id='win5'>
-                <div>Win5-ContentContentContentContent</div>
-            </Window>
-            <Window title='Win6' defaultPosition={[20, 20]} id='win6'>
-                <span>Win6</span>
-            </Window>
-        </Desktop>
-    );
+    const { desktop } = useDesktop();
+
+    useEffect(() => {
+        desktop.install({
+            id: 'app1',
+            name: 'app 1',
+        });
+        desktop.install({
+            id: 'app2',
+            name: 'app 2',
+        });
+    }, []);
+
+    return <Desktop desktop={desktop} />;
 }
 
 export default App;

@@ -1,6 +1,7 @@
 import { createModel } from '@jeiiz/ohooks';
 import { useEventEmitter } from 'ahooks';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Container } from '../domain/container';
 import { SizeType, sortDomWithSize } from '../utils/helper';
 
 export enum EVENT_TYPE {
@@ -15,6 +16,7 @@ export enum EVENT_TYPE {
     CANVAS_CLICK = 'canvas_click',
     BAR_SORT = 'bar_sort',
     APP_START = 'app_start',
+    APP_INSTALLED = 'app_installed',
 }
 
 export type WindowMapType = Record<
@@ -33,7 +35,9 @@ export const DESKTOP_CONFIG = {
     },
 };
 
-export function useDesktop() {
+export function useDesktopModel() {
+    const containerDomain = useRef<Container>();
+
     const event$ = useEventEmitter<{
         type: EVENT_TYPE;
         [key: string]: any;
@@ -177,7 +181,9 @@ export function useDesktop() {
 
         containerSize,
         setContainerSize,
+
+        containerDomain,
     };
 }
 
-export const DesktopModel = createModel(useDesktop);
+export const DesktopModel = createModel(useDesktopModel);
