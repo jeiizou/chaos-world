@@ -20,19 +20,6 @@ export default function ContainerComponent({
         setContainerSize(containerSize);
     }, [containerSize]);
 
-    // // container action
-    // const sortBoxers = () => {
-    //     if (!containerSize) return;
-    //     emit$(EVENT_TYPE.WIN_SORT, {
-    //         position: sortDomWithSize(
-    //             zlevelArr,
-    //             windowMap,
-    //             containerSize,
-    //             DESKTOP_CONFIG.sortConfig,
-    //         ),
-    //     });
-    // };
-
     const onMouseLeave = (ev: React.MouseEvent) => {
         emit$(EVENT_TYPE.CANVAS_LEAVE, {
             ev: ev,

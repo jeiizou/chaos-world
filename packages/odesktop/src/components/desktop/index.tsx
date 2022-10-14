@@ -1,5 +1,8 @@
 import React, { ReactNode } from 'react';
 import { DesktopModel } from '../../model/desktop-model';
+import Bar from '../bar';
+import Container from '../container';
+import Dock from '../dock';
 import styles from './index.module.scss';
 
 type DesktopProps = {
@@ -12,7 +15,11 @@ export default function Desktop({
     return (
         <DesktopModel.Provider>
             <div className={styles.desktop}>
-                <>{children}</>
+                <Bar />
+                <Container>
+                    <>{children}</>
+                </Container>
+                <Dock />
             </div>
         </DesktopModel.Provider>
     );

@@ -14,12 +14,14 @@ type WinProps = {
     children: ReactNode | ReactNode[];
     title?: string;
     defaultPosition?: [number, number];
+    id: string;
 };
 
 export default function WindowComponent({
     children,
     defaultPosition = [0, 0],
     title,
+    id,
 }: WinProps): React.ReactElement {
     const {
         windowMap,
@@ -38,7 +40,6 @@ export default function WindowComponent({
     const size = useSize(domHandle);
     const debouncedSize = useDebounce(size, { wait: 200 });
 
-    const id = useMemo(() => `${title}:${nanoid(6)}`, [title]);
     const windowInfo = useMemo(() => windowMap?.[id], [id, windowMap]);
 
     // hooks
@@ -55,13 +56,15 @@ export default function WindowComponent({
 
     // effects
     useEffect(() => {
-        setBoundingBox([
-            0,
-            0,
-            containerSize?.width ?? 0,
-            containerSize?.height ?? 0,
-        ]);
-    }, [containerSize]);
+        if (containerSize && debouncedSize) {
+            setBoundingBox([
+                0,
+                0,
+                containerSize.width - debouncedSize.width,
+                containerSize.height - debouncedSize.height,
+            ]);
+        }
+    }, [containerSize, debouncedSize]);
 
     subscribe$(EVENT_TYPE.CANVAS_LEAVE, val => {
         setIsMoving(false);
@@ -69,21 +72,19 @@ export default function WindowComponent({
     });
 
     subscribe$(EVENT_TYPE.CANVAS_MOVING, val => {
-        moving(val.ev);
+        moving(val?.ev);
     });
 
-    subscribe$(EVENT_TYPE.WIN_SORT, val => {
-        if (windowInfo && val) {
-            const position = val.position[id];
+    subscribe$(EVENT_TYPE.WIN_POSITION, val => {
+        if (windowInfo && val?.positions) {
+            const position = val.positions[id];
             position && setPosition(position);
         }
     });
 
     // function
     const focusCurrent = () => {
-        emit$(EVENT_TYPE.WIN_FOCUS, {
-            id: id,
-        });
+        emit$(EVENT_TYPE.WIN_FOCUS, { id });
     };
 
     const winLevel = useMemo(() => {
@@ -124,13 +125,8 @@ export default function WindowComponent({
         }
     };
 
-    const min = () => {
-        emit$(EVENT_TYPE.WIN_MIN, { id });
-    };
-
-    const close = () => {
-        emit$(EVENT_TYPE.WIN_CLOSE, { id });
-    };
+    const min = () => emit$(EVENT_TYPE.WIN_MIN, { id });
+    const close = () => emit$(EVENT_TYPE.WIN_CLOSE, { id });
 
     return windowInfo ? (
         <div
@@ -187,6 +183,6 @@ export default function WindowComponent({
             </div>
         </div>
     ) : (
-        <>unmounted</>
+        <></>
     );
 }
