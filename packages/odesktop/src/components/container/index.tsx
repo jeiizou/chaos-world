@@ -3,15 +3,14 @@ import styles from './index.module.scss';
 import { useSize } from 'ahooks';
 import { SizeType, sortDomWithSize } from '../../utils/helper';
 import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
+import WindowComponent from '../window';
 
 type ContainerProps = {
-    children: ReactNode | ReactNode[];
+    // HOLD
 };
 
-export default function ContainerComponent({
-    children,
-}: ContainerProps): React.ReactElement {
-    const { emit$, setContainerSize } = DesktopModel.useContext();
+export default function ContainerComponent({}: ContainerProps): React.ReactElement {
+    const { emit$, setContainerSize, windowMap } = DesktopModel.useContext();
 
     // container states manager
     const containerDom = useRef<HTMLDivElement>(null);
@@ -48,7 +47,14 @@ export default function ContainerComponent({
             onClick={onClick}
             ref={containerDom}
             className={styles.box}>
-            <>{children}</>
+            {Object.keys(windowMap).map(winKey => (
+                <WindowComponent
+                    id={winKey}
+                    title={windowMap[winKey].app.info.name}
+                    key={winKey}>
+                    <div>{windowMap[winKey].app.info.name}</div>
+                </WindowComponent>
+            ))}
         </div>
     );
 }

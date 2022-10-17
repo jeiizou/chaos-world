@@ -1,5 +1,6 @@
 import React from 'react';
 import AppSvg from '../../assets/app.svg';
+import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
 import styles from './index.module.scss';
 
 type AppItemProps = {
@@ -14,12 +15,16 @@ export default function AppItem({
     name,
     id,
 }: AppItemProps): React.ReactElement {
+    const { emit$ } = DesktopModel.useContext();
+
+    const onOpenApp = () => emit$(EVENT_TYPE.APP_START, { id });
+
     return (
-        <div className={styles['app-item']}>
+        <div className={styles['app-item']} onClick={onOpenApp}>
             <img
                 className={styles['app-item-icon']}
                 src={icon ?? AppSvg}
-                alt=''
+                alt='app-item-icon'
             />
             {name}
         </div>

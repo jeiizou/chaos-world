@@ -15,7 +15,7 @@ export default function Bar({}: BarProps): React.ReactElement {
         <div className={styles.bar}>
             <div
                 className={styles.btn}
-                onClick={() => emit$(EVENT_TYPE.APP_START)}>
+                onClick={() => emit$(EVENT_TYPE.BOOT_START)}>
                 <img src={StartSvg} alt='' />
             </div>
             <div

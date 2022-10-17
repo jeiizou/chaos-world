@@ -13,13 +13,11 @@ import Dock from '../dock';
 import styles from './index.module.scss';
 
 type InnerDesktopProps = {
-    children?: ReactNode | ReactNode[];
     desktop: DesktopInstance;
 };
 
 export default function InnerDesktop({
     desktop,
-    children,
 }: InnerDesktopProps): React.ReactElement {
     const { emit$, containerDomain } = DesktopModel.useContext();
 
@@ -27,12 +25,8 @@ export default function InnerDesktop({
         containerDomain.current = ContainerDomain.getInstance();
 
         desktop.install = async (app: AppInstance) => {
-            let application = new Application(app.id, {
-                name: app.name,
-                icon: app.icon,
-            });
             let installFlag = await containerDomain?.current?.install(
-                application,
+                Application.createAppFromAppInstance(app),
             );
             if (installFlag) {
                 emit$(EVENT_TYPE.APP_INSTALLED);
@@ -44,9 +38,7 @@ export default function InnerDesktop({
         <>
             <div className={styles.desktop}>
                 <Bar />
-                <Container>
-                    <>{children}</>
-                </Container>
+                <Container />
                 <Dock />
             </div>
             <ContextMenu />

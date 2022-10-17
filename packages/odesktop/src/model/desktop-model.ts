@@ -1,6 +1,7 @@
 import { createModel } from '@jeiiz/ohooks';
 import { useEventEmitter } from 'ahooks';
 import { useRef, useState } from 'react';
+import { Application } from '../domain/application';
 import { Container } from '../domain/container';
 import { SizeType, sortDomWithSize } from '../utils/helper';
 
@@ -15,6 +16,7 @@ export enum EVENT_TYPE {
     CANVAS_MOVING = 'canvas_moving',
     CANVAS_CLICK = 'canvas_click',
     BAR_SORT = 'bar_sort',
+    BOOT_START = 'boot_start',
     APP_START = 'app_start',
     APP_INSTALLED = 'app_installed',
 }
@@ -22,10 +24,9 @@ export enum EVENT_TYPE {
 export type WindowMapType = Record<
     string, // window key
     {
-        title: string;
         visible: boolean;
-        isRunning?: boolean;
         size?: SizeType;
+        app: Application;
     }
 >;
 
@@ -70,10 +71,8 @@ export function useDesktopModel() {
     const [containerSize, setContainerSize] = useState<SizeType>();
 
     subscribe$(EVENT_TYPE.WIN_REGIS, val => {
-        console.log('注册窗口', val);
         setZLevelArr(v => {
             if (~v.indexOf(val?.id)) {
-                console.log('已注册', val?.id);
                 return v;
             }
             v.push(val?.id);
@@ -153,6 +152,7 @@ export function useDesktopModel() {
         }
     });
 
+    // 窗口排序
     subscribe$(EVENT_TYPE.BAR_SORT, () => {
         if (containerSize) {
             let positions = sortDomWithSize(
@@ -165,8 +165,34 @@ export function useDesktopModel() {
         }
     });
 
+    // 画布点击
     subscribe$(EVENT_TYPE.CANVAS_CLICK, () => {
         setActiveWindowId(undefined);
+    });
+
+    subscribe$(EVENT_TYPE.APP_START, val => {
+        if (!val) return;
+        let app = containerDomain.current?.getAppById(val.id);
+        if (!app) return;
+
+        let loadFn = app.load();
+        // setWindowMap(map=>{
+        //     map[val.id])
+        // })
+        if (windowMap[val.id]) {
+            // 已存在
+            console.warn('application loaded');
+        } else {
+            // setWindowMap(map => {
+            //     map[val.id] = {
+            //         app: app,
+            //         size: '',
+            //     };
+            //     return { ...map };
+            // });
+            // TODO: create a window
+            console.log('create a window');
+        }
     });
 
     return {

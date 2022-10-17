@@ -5,7 +5,6 @@ import { DesktopInstance } from '../../types';
 import InnerDesktop from './inner';
 
 type DesktopProps = {
-    children?: ReactNode | ReactNode[];
     desktop: DesktopInstance;
 };
 

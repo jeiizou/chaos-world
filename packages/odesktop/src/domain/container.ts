@@ -27,4 +27,13 @@ export class Container {
     getAppsSnapShot() {
         return this.appMap;
     }
+
+    getAppById(id: string) {
+        let isInstalled = this.appMap.has(id);
+        if (!isInstalled) {
+            console.warn('Application is not installed');
+            return null;
+        }
+        return this.appMap.get(id);
+    }
 }

@@ -95,15 +95,6 @@ export default function WindowComponent({
     }, [zlevelArr, id]);
 
     useEffect(() => {
-        setTimeout(() => {
-            emit$(EVENT_TYPE.WIN_REGIS, {
-                id: id,
-                title: title,
-            });
-        }, 0);
-    }, []);
-
-    useEffect(() => {
         if (debouncedSize) {
             emit$(EVENT_TYPE.WIN_RESIZE, {
                 id: id,

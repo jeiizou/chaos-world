@@ -18,7 +18,7 @@ export default function Bootstrap(): React.ReactElement {
     const [visible, setVisible] = useState(false);
     const [appInfos, setAppInfos] = useState<AppInfoMap>({});
 
-    subscribe$(EVENT_TYPE.APP_START, () => setVisible(true));
+    subscribe$(EVENT_TYPE.BOOT_START, () => setVisible(true));
 
     subscribe$(EVENT_TYPE.APP_INSTALLED, () => {
         const apps = containerDomain.current?.getAppsSnapShot();

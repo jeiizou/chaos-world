@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { DesktopInstance } from '../types';
 
-export function useDesktop() {
+export function useDesktop(config: { desktopDefault: DesktopInstance }) {
     const desktop = {};
 
     return {
