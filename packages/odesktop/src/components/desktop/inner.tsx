@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { Application } from '../../domain/application';
 import { Container as ContainerDomain } from '../../domain/container';
 import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
-import { AppInstance, DesktopInstance } from '../../types';
+import { AppInstance, DesktopApp, DesktopInstance } from '../../types';
 import Bar from '../bar';
 import Bootstrap from '../bootstrap';
 import Container from '../container';
@@ -24,9 +24,10 @@ export default function InnerDesktop({
     useMount(() => {
         containerDomain.current = ContainerDomain.getInstance();
 
-        desktop.install = async (app: AppInstance) => {
+        desktop.install = async (app: DesktopApp) => {
+            let appIns = app.install();
             let installFlag = await containerDomain?.current?.install(
-                Application.createAppFromAppInstance(app),
+                Application.createAppFromAppInstance(appIns),
             );
             if (installFlag) {
                 emit$(EVENT_TYPE.APP_INSTALLED);

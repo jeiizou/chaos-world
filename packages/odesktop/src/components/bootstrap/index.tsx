@@ -37,9 +37,13 @@ export default function Bootstrap(): React.ReactElement {
                 [styles['bootstrap--hide']]: !visible,
             })}
             onClick={() => setVisible(false)}>
-            {Object.keys(appInfos).map(appId => (
-                <AppItem id={appId} key={appId} {...appInfos[appId]} />
-            ))}
+            {Object.keys(appInfos).length > 0 ? (
+                Object.keys(appInfos).map(appId => (
+                    <AppItem id={appId} key={appId} {...appInfos[appId]} />
+                ))
+            ) : (
+                <span>no app installed</span>
+            )}
         </div>
     );
 }

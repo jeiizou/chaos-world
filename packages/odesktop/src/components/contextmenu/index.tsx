@@ -7,7 +7,7 @@ type ContextMenuProps = {
 };
 
 export default function ContextMenu({}: ContextMenuProps): React.ReactElement {
-    const { subscribe$, emit$ } = DesktopModel.useContext();
+    const { emit$ } = DesktopModel.useContext();
 
     const [visible, setVisible] = useState(false);
     const [position, setPosition] = useState([0, 0]);
@@ -22,10 +22,6 @@ export default function ContextMenu({}: ContextMenuProps): React.ReactElement {
 
         return () => {};
     }, []);
-
-    subscribe$(EVENT_TYPE.CANVAS_CLICK, () => {
-        setVisible(false);
-    });
 
     const menu = [
         // {
@@ -47,20 +43,30 @@ export default function ContextMenu({}: ContextMenuProps): React.ReactElement {
 
     return (
         <div
-            className={styles['context-menu']}
+            className={styles['context-menu-wrapper']}
             style={{
-                left: position[0],
-                top: position[1],
                 display: visible ? 'block' : 'none',
+            }}
+            onClick={e => {
+                e.stopPropagation();
+                setVisible(false);
             }}>
-            {menu.map(item => (
-                <div
-                    key={item.value}
-                    onClick={item.handle}
-                    className={styles['context-item']}>
-                    {item.name}
-                </div>
-            ))}
+            <div
+                className={styles['context-menu']}
+                style={{
+                    left: position[0],
+                    top: position[1],
+                    display: visible ? 'block' : 'none',
+                }}>
+                {menu.map(item => (
+                    <div
+                        key={item.value}
+                        onClick={item.handle}
+                        className={styles['context-item']}>
+                        {item.name}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

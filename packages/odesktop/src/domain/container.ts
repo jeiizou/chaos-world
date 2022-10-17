@@ -1,3 +1,4 @@
+import { AppInstance } from '../types';
 import { Application } from './application';
 
 export class Container {

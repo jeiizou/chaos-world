@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import './App.css';
+import { Desktop, useDesktop, ConfigApp } from '@jeiiz/odesktop';
+import { useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const { desktop } = useDesktop();
 
-  return (
-    <div className="App">
-      init
-    </div>
-  )
+    useEffect(()=>{
+      desktop.install(ConfigApp)
+    }, [])
+
+    return <Desktop desktop={desktop} />;
 }
 
-export default App
+export default App;

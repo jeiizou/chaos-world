@@ -12,6 +12,10 @@ export interface AppInstance {
     component?: ReactNode;
 }
 
+export interface DesktopApp {
+    install: () => AppInstance;
+}
+
 export interface DesktopInstance {
-    install: (app: AppInstance) => void;
+    install: (app: DesktopApp) => void;
 }

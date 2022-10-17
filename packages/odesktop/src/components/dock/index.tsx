@@ -12,7 +12,7 @@ type ActiveBarProps = {
 export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
     const { windowMap, emit$, activeWindowId } = DesktopModel.useContext();
 
-    return (
+    return Object.keys(windowMap).length > 0 ? (
         <div className={styles['free-layout__docker']}>
             {Object.keys(windowMap).map(key => {
                 return (
@@ -45,5 +45,7 @@ export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
                 );
             })}
         </div>
+    ) : (
+        <></>
     );
 }
