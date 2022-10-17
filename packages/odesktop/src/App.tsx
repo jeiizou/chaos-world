@@ -4,6 +4,10 @@ import { useEffect } from 'react';
 import './App.css';
 import { AppType } from './types';
 
+const Test = () => {
+    return <div>123123</div>;
+};
+
 function App() {
     const { desktop } = useDesktop();
 

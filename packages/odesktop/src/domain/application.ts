@@ -15,6 +15,8 @@ export class Application {
         );
     }
 
+    private loaded = false;
+
     constructor(
         public id: string,
         public type: AppType,
@@ -25,12 +27,18 @@ export class Application {
         public component?: ReactNode,
     ) {}
 
-    load() {
+    loadResources() {
         switch (this.type) {
             case AppType.ReactComponentApp:
                 return (boxDom: HTMLElement) => {
-                    ReactDOM.createPortal(this.component, boxDom);
+                    return ReactDOM.createPortal(this.component, boxDom);
                 };
         }
+    }
+
+    load() {
+        let loadResFn = this.loadResources();
+
+        return loadResFn;
     }
 }

@@ -51,9 +51,7 @@ export default function ContainerComponent({}: ContainerProps): React.ReactEleme
                 <WindowComponent
                     id={winKey}
                     title={windowMap[winKey].app.info.name}
-                    key={winKey}>
-                    <div>{windowMap[winKey].app.info.name}</div>
-                </WindowComponent>
+                    key={winKey}></WindowComponent>
             ))}
         </div>
     );

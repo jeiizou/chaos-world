@@ -70,23 +70,6 @@ export function useDesktopModel() {
     const [windowMap, setWindowMap] = useState<WindowMapType>({});
     const [containerSize, setContainerSize] = useState<SizeType>();
 
-    subscribe$(EVENT_TYPE.WIN_REGIS, val => {
-        setZLevelArr(v => {
-            if (~v.indexOf(val?.id)) {
-                return v;
-            }
-            v.push(val?.id);
-            return [...v];
-        });
-        setWindowMap(map => {
-            map[val?.id] = {
-                title: val?.title,
-                visible: true,
-            };
-            return { ...map };
-        });
-    });
-
     subscribe$(EVENT_TYPE.WIN_FOCUS, val => {
         setZLevelArr(v => {
             let index = v.indexOf(val?.id);
@@ -170,28 +153,35 @@ export function useDesktopModel() {
         setActiveWindowId(undefined);
     });
 
+    // 启动APP
     subscribe$(EVENT_TYPE.APP_START, val => {
         if (!val) return;
         let app = containerDomain.current?.getAppById(val.id);
         if (!app) return;
 
-        let loadFn = app.load();
-        // setWindowMap(map=>{
-        //     map[val.id])
-        // })
         if (windowMap[val.id]) {
             // 已存在
             console.warn('application loaded');
         } else {
-            // setWindowMap(map => {
-            //     map[val.id] = {
-            //         app: app,
-            //         size: '',
-            //     };
-            //     return { ...map };
-            // });
-            // TODO: create a window
-            console.log('create a window');
+            setWindowMap(map => {
+                if (!app) return map;
+                map[val.id] = {
+                    app,
+                    size: {
+                        width: 200,
+                        height: 200,
+                    },
+                    visible: true,
+                };
+                return { ...map };
+            });
+            setZLevelArr(v => {
+                if (~v.indexOf(val?.id)) {
+                    return v;
+                }
+                v.push(val?.id);
+                return [...v];
+            });
         }
     });
 

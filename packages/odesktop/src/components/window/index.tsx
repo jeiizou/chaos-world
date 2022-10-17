@@ -1,4 +1,11 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    ReactNode,
+    useEffect,
+    useId,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import styles from './index.module.scss';
 import { useMove } from '@jeiiz/ohooks';
 import { styleMap } from '../../utils/just-js';
@@ -10,14 +17,12 @@ import minusSvg from '../../assets/minus.svg';
 import { DesktopModel, EVENT_TYPE } from '../../model/desktop-model';
 
 type WinProps = {
-    children: ReactNode | ReactNode[];
     title?: string;
     defaultPosition?: [number, number];
     id: string;
 };
 
 export default function WindowComponent({
-    children,
     defaultPosition = [0, 0],
     title,
     id,
@@ -33,6 +38,7 @@ export default function WindowComponent({
 
     // dom ref
     const domHandle = useRef<HTMLDivElement>(null);
+    const appContainerHandle = useRef<HTMLDivElement>(null);
 
     // state
     const [isMoving, setIsMoving] = useState(false);
@@ -103,6 +109,18 @@ export default function WindowComponent({
         }
     }, [debouncedSize]);
 
+    const cpt = useRef<any>();
+    useEffect(() => {
+        if (appContainerHandle.current) {
+            const app = windowInfo.app;
+            let loadFn = app.load();
+            let compony = loadFn(appContainerHandle.current);
+            if (compony) {
+                cpt.current = compony;
+            }
+        }
+    }, []);
+
     const max = () => {
         if (domHandle.current) {
             domHandle.current.style.width = `${
@@ -169,7 +187,7 @@ export default function WindowComponent({
                 </span>
             </div>
             <div className={styles.winBody}>
-                {Array.isArray(children) ? <>{children}</> : children}
+                <div ref={appContainerHandle}>{cpt.current}</div>
             </div>
         </div>
     ) : (

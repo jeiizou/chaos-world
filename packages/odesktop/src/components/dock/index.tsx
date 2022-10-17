@@ -39,7 +39,7 @@ export default function ActiveBar({}: ActiveBarProps): React.ReactElement {
                             }}
                         />
                         <div className={styles.item_title}>
-                            {windowMap[key].title}
+                            {windowMap[key].app.info.name}
                         </div>
                     </div>
                 );
