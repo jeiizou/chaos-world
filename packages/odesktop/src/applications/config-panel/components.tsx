@@ -5,5 +5,12 @@ type ConfigPanelProps = {
 };
 
 export default function ConfigPanel({}: ConfigPanelProps): React.ReactElement {
-    return <div>系统设置</div>;
+    return (
+        <div>
+            <div>
+                <div>样式设置</div>
+            </div>
+            <div>面板</div>
+        </div>
+    );
 }

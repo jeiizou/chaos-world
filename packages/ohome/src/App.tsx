@@ -1,13 +1,14 @@
 import './App.css';
-import { Desktop, useDesktop, ConfigApp } from '@jeiiz/odesktop';
+import { Desktop, useDesktop, ConfigApp, AppStore } from '@jeiiz/odesktop';
 import { useEffect } from 'react';
 
 function App() {
     const { desktop } = useDesktop();
 
-    useEffect(()=>{
-      desktop.install(ConfigApp)
-    }, [])
+    useEffect(() => {
+        desktop.install(ConfigApp);
+        desktop.install(AppStore);
+    }, []);
 
     return <Desktop desktop={desktop} />;
 }
