@@ -1,4 +1,3 @@
-import { useMount } from '@jeiiz/ohooks';
 import React, { ReactNode } from 'react';
 import { DesktopModel } from '../../model/desktop-model';
 import { DesktopInstance } from '../../types';
