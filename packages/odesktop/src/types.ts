@@ -1,21 +1,21 @@
 import { ReactNode } from 'react';
 
 export enum AppType {
-    ReactComponentApp = 'react-component-app',
+  ReactComponentApp = 'react-component-app'
 }
 
 export interface AppInstance {
-    id: string;
-    name: string;
-    type: AppType;
-    icon?: string;
-    component?: ReactNode;
+  id: string;
+  name: string;
+  type: AppType;
+  icon?: string;
+  component?: ReactNode;
 }
 
 export interface DesktopApp {
-    install: () => AppInstance;
+  install: () => AppInstance;
 }
 
 export interface DesktopInstance {
-    install: (app: DesktopApp) => void;
+  install: (app: DesktopApp) => void;
 }

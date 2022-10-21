@@ -1,9 +1,9 @@
 import React from 'react';
 
 type GridContainerProps = {
-    // HOLD
+  // HOLD
 };
 
 export default function GridContainer({}: GridContainerProps): React.ReactElement {
-    return <div>GridContainer</div>;
+  return <div>GridContainer</div>;
 }

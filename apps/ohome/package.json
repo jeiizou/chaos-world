@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "concurrently  \"rush build:watch --to-except .\" \"npm run dev\"",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "postbuild": "tsc",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@jeiiz/odesktop": "workspace:^0.0.0",
+    "@jeiiz/odesktop": "~0.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -17,6 +19,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
+    "concurrently": "^7.4.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.7"
   }

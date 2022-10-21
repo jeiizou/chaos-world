@@ -12,37 +12,33 @@ import Dock from '../dock';
 import styles from './index.module.scss';
 
 type InnerDesktopProps = {
-    desktop: DesktopInstance;
+  desktop: DesktopInstance;
 };
 
-export default function InnerDesktop({
-    desktop,
-}: InnerDesktopProps): React.ReactElement {
-    const { emit$, containerDomain } = DesktopModel.useContext();
+export default function InnerDesktop({ desktop }: InnerDesktopProps): React.ReactElement {
+  const { emit$, containerDomain } = DesktopModel.useContext();
 
-    useMount(() => {
-        containerDomain.current = ContainerDomain.getInstance();
+  useMount(() => {
+    containerDomain.current = ContainerDomain.getInstance();
 
-        desktop.install = async (app: DesktopApp) => {
-            let appIns = app.install();
-            let installFlag = await containerDomain?.current?.install(
-                Application.createAppFromAppInstance(appIns),
-            );
-            if (installFlag) {
-                emit$(EVENT_TYPE.APP_INSTALLED);
-            }
-        };
-    });
+    desktop.install = async (app: DesktopApp) => {
+      let appIns = app.install();
+      let installFlag = await containerDomain?.current?.install(Application.createAppFromAppInstance(appIns));
+      if (installFlag) {
+        emit$(EVENT_TYPE.APP_INSTALLED);
+      }
+    };
+  });
 
-    return (
-        <>
-            <div className={styles.desktop}>
-                <Bar />
-                <Container />
-                <Dock />
-            </div>
-            <ContextMenu />
-            <Bootstrap />
-        </>
-    );
+  return (
+    <>
+      <div className={styles.desktop}>
+        <Bar />
+        <Container />
+        <Dock />
+      </div>
+      <ContextMenu />
+      <Bootstrap />
+    </>
+  );
 }

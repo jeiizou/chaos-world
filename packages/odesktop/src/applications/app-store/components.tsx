@@ -1,9 +1,9 @@
 import React from 'react';
 
 type AppStoreProps = {
-    // HOLD
+  // HOLD
 };
 
 export default function AppStore({}: AppStoreProps): React.ReactElement {
-    return <div>AppStore</div>;
+  return <div>AppStore</div>;
 }

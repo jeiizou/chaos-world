@@ -1,39 +1,39 @@
 .btn {
-    $size: 34px;
-    color: #fff;
-    display: inline-flex;
-    cursor: pointer;
-    width: $size;
-    height: $size;
-    border-radius: calc($size / 2);
-    padding: 10px;
-    box-sizing: border-box;
-    // background-color: #fff;
-    position: relative;
+  $size: 34px;
+  color: #fff;
+  display: inline-flex;
+  cursor: pointer;
+  width: $size;
+  height: $size;
+  border-radius: calc($size / 2);
+  padding: 10px;
+  box-sizing: border-box;
+  // background-color: #fff;
+  position: relative;
 
-    &:hover {
-        background-image: linear-gradient(315deg, #ec008c, #fc6767);
+  &:hover {
+    background-image: linear-gradient(315deg, #ec008c, #fc6767);
+  }
+
+  & + & {
+    margin-left: 6px;
+
+    &::before {
+      color: #434343;
+      position: absolute;
+      content: '|';
+      left: -5px;
+      top: 6px;
     }
-
-    & + & {
-        margin-left: 6px;
-
-        &::before {
-            color: #434343;
-            position: absolute;
-            content: '|';
-            left: -5px;
-            top: 6px;
-        }
-    }
+  }
 }
 
 .bar {
-    padding: 5px;
-    background-color: rgba($color: #f5f5f5, $alpha: 0.4);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 4px var(--default-color);
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
+  padding: 5px;
+  background-color: rgba($color: #f5f5f5, $alpha: 0.4);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 4px var(--default-color);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
 }

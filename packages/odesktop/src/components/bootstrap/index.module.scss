@@ -1,39 +1,39 @@
 @keyframes showWithBlur {
-    0% {
-        display: none;
-        backdrop-filter: blur(0);
-        opacity: 0;
-    }
+  0% {
+    display: none;
+    backdrop-filter: blur(0);
+    opacity: 0;
+  }
 
-    100% {
-        display: grid;
-        opacity: 1;
-        backdrop-filter: blur(10px);
-    }
+  100% {
+    display: grid;
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
 }
 
 .bootstrap {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9998;
-    background-color: rgba(#000, 0.4);
-    color: #fff;
-    padding: 160px;
-    box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
+  background-color: rgba(#000, 0.4);
+  color: #fff;
+  padding: 160px;
+  box-sizing: border-box;
 
-    display: grid;
-    /* 指定每一行的宽度 每个宽度中间用空格隔开 */
-    grid-template-rows: repeat(5, 1fr);
-    /* 指定每一列的宽度 每个宽度中间用空格隔开 */
-    grid-template-columns: repeat(6, 1fr);
+  display: grid;
+  /* 指定每一行的宽度 每个宽度中间用空格隔开 */
+  grid-template-rows: repeat(5, 1fr);
+  /* 指定每一列的宽度 每个宽度中间用空格隔开 */
+  grid-template-columns: repeat(6, 1fr);
 
-    justify-items: center;
-    align-items: center;
-    animation: showWithBlur 200ms ease-in-out 1 forwards;
+  justify-items: center;
+  align-items: center;
+  animation: showWithBlur 200ms ease-in-out 1 forwards;
 
-    &--hide {
-        display: none;
-    }
+  &--hide {
+    display: none;
+  }
 }
