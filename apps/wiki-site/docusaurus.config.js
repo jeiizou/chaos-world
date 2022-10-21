@@ -57,7 +57,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Wiki From Jeiizou',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg'
@@ -67,14 +67,14 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial'
+            label: 'Wiki'
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right'
-          }
+          { to: '/blog', label: 'Blog', position: 'left' }
+          // {
+          //   href: 'https://github.com/facebook/docusaurus',
+          //   label: 'GitHub',
+          //   position: 'right'
+          // }
         ]
       },
       footer: {
@@ -120,7 +120,7 @@ const config = {
             ]
           }
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
+        copyright: `Copyright © ${new Date().getFullYear()} Wiki doc, Inc. Built with Docusaurus.`
       },
       prism: {
         theme: lightCodeTheme,
