@@ -1,3 +1,12 @@
 {
-  "cSpell.words": ["ahooks", "autoinstaller", "autoinstallers", "ofunc", "ohook", "zlevel"]
+  "cSpell.words": [
+    "ahooks",
+    "autoinstaller",
+    "autoinstallers",
+    "clsx",
+    "ofunc",
+    "ohook",
+    "typecheck",
+    "zlevel"
+  ]
 }
