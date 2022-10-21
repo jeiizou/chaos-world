@@ -1,0 +1,48 @@
+.sandbox-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  .sandbox-demos {
+    width: 300px;
+    flex-shrink: 0;
+    background-color: #f1f2f6;
+  }
+
+  .sandbox-scene {
+    width: 100%;
+  }
+
+  .sandbox-demo-title {
+    background-color: #ced6e0;
+    margin: 16px;
+    border-radius: 4px;
+    padding: 8px;
+
+    font-size: 14px;
+    text-align: center;
+
+    color: #2f3640;
+  }
+
+  .sandbox-demo-item {
+    color: #2f3640;
+    margin: 0 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+
+    &:hover {
+      color: #596275;
+      background-color: rgba(#4bcffa, 0.4);
+      cursor: pointer;
+    }
+
+    &.active {
+      color: #596275;
+      background-color: rgba(#4bcffa, 0.4);
+      cursor: pointer;
+    }
+  }
+}
