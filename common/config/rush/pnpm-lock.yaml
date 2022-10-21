@@ -5,8 +5,8 @@ specifiers:
   '@rush-temp/ofunc': file:./projects/ofunc.tgz
   '@rush-temp/ohome': file:./projects/ohome.tgz
   '@rush-temp/ohook': file:./projects/ohook.tgz
+  '@rush-temp/render': file:./projects/render.tgz
   '@types/lodash-es': ^4.17.6
-  '@types/node': ~18.11.2
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@vitejs/plugin-react': ^2.0.1
@@ -20,22 +20,22 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   sass: ^1.54.5
+  twgl.js: ^5.0.1
   typescript: ^4.6.4
   typescript-plugin-css-modules: ^3.4.0
-  vite: ^3.0.7
-  vite-plugin-dts: ~1.6.6
   vite-plugin-sass-dts: ^1.1.42
+  vite-plugin-string: ^1.1.2
 
 dependencies:
   '@rush-temp/odesktop': file:projects/odesktop.tgz
   '@rush-temp/ofunc': file:projects/ofunc.tgz
   '@rush-temp/ohome': file:projects/ohome.tgz_sass@1.55.0
   '@rush-temp/ohook': file:projects/ohook.tgz
+  '@rush-temp/render': file:projects/render.tgz_sass@1.55.0
   '@types/lodash-es': 4.17.6
-  '@types/node': 18.11.2
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
-  '@vitejs/plugin-react': 2.1.0_vite@3.1.8
+  '@vitejs/plugin-react': 2.1.0
   ahooks: 3.7.2_react@18.2.0
   cross-env: 7.0.3
   esbuild: 0.15.11
@@ -46,11 +46,11 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   sass: 1.55.0
+  twgl.js: 5.1.0
   typescript: 4.8.4
   typescript-plugin-css-modules: 3.4.0_typescript@4.8.4
-  vite: 3.1.8_sass@1.55.0
-  vite-plugin-dts: 1.6.6_vite@3.1.8
   vite-plugin-sass-dts: 1.1.44_prettier@2.7.1+sass@1.55.0
+  vite-plugin-string: 1.1.2
 
 packages:
 
@@ -450,6 +450,14 @@ packages:
       fastq: 1.13.0
     dev: false
 
+  /@rollup/pluginutils/4.2.1:
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    dev: false
+
   /@rushstack/node-core-library/3.53.2:
     resolution: {integrity: sha512-FggLe5DQs0X9MNFeJN3/EXwb+8hyZUTEp2i+V1e8r4Va4JgkjBNY0BuEaQI+3DW6S4apV3UtXU3im17MSY00DA==}
     dependencies:
@@ -538,6 +546,23 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: false
+
+  /@vitejs/plugin-react/2.1.0:
+    resolution: {integrity: sha512-am6rPyyU3LzUYne3Gd9oj9c4Rzbq5hQnuGXSMT6Gujq45Il/+bunwq3lrB7wghLkiF45ygMwft37vgJ/NE8IAA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0
+    dependencies:
+      '@babel/core': 7.19.3
+      '@babel/plugin-transform-react-jsx': 7.19.0_@babel+core@7.19.3
+      '@babel/plugin-transform-react-jsx-development': 7.18.6_@babel+core@7.19.3
+      '@babel/plugin-transform-react-jsx-self': 7.18.6_@babel+core@7.19.3
+      '@babel/plugin-transform-react-jsx-source': 7.18.6_@babel+core@7.19.3
+      magic-string: 0.26.7
+      react-refresh: 0.14.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@vitejs/plugin-react/2.1.0_vite@3.1.8:
@@ -1146,6 +1171,10 @@ packages:
   /escape-string-regexp/1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
+    dev: false
+
+  /estree-walker/2.0.2:
+    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
     dev: false
 
   /expand-tilde/2.0.2:
@@ -2283,6 +2312,10 @@ packages:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
     dev: false
 
+  /twgl.js/5.1.0:
+    resolution: {integrity: sha512-/Sx6JkgQc7ggcmEs7OJ0fmHOYmNfkspMLAPid7CJgn3m8ddBMzKiwPo90+PbG8Xp95dKJOe0IuCXKMv8U8/dfA==}
+    dev: false
+
   /typescript-plugin-css-modules/3.4.0_typescript@4.8.4:
     resolution: {integrity: sha512-2MdjfSg4MGex1csCWRUwKD+MpgnvcvLLr9bSAMemU/QYGqBsXdez0cc06H/fFhLtRoKJjXg6PSTur3Gy1Umhpw==}
     peerDependencies:
@@ -2381,6 +2414,12 @@ packages:
       postcss-js: 4.0.0
       prettier: 2.7.1
       sass: 1.55.0
+    dev: false
+
+  /vite-plugin-string/1.1.2:
+    resolution: {integrity: sha512-QMzsMAR4Vpw4DdCPNypVxKOkthtYIKNk8aR7U10kC/uMogf5tKsq5o8+lB9FtEu3XlSuym3On071zlUBP14yaw==}
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
     dev: false
 
   /vite/3.1.8_sass@1.55.0:
@@ -2593,4 +2632,26 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       typescript: 4.8.4
+    dev: false
+
+  file:projects/render.tgz_sass@1.55.0:
+    resolution: {integrity: sha512-f9LMVymsYPvO8e6o7tnsxR/QKY1SPSXRuXWq+JzSjm4oINqJrymoyBe9lM3PYdsAidWIE7dJKbrtYr3C1uqS8g==, tarball: file:projects/render.tgz}
+    id: file:projects/render.tgz
+    name: '@rush-temp/render'
+    version: 0.0.0
+    dependencies:
+      '@types/lodash-es': 4.17.6
+      '@types/node': 18.11.2
+      lodash-es: 4.17.21
+      twgl.js: 5.1.0
+      typescript: 4.8.4
+      vite: 3.1.8_sass@1.55.0
+      vite-plugin-dts: 1.6.6_vite@3.1.8
+      vite-plugin-string: 1.1.2
+    transitivePeerDependencies:
+      - less
+      - sass
+      - stylus
+      - supports-color
+      - terser
     dev: false

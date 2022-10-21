@@ -32,6 +32,10 @@
     {
       "packageName": "@jeiiz/ohome",
       "projectFolder": "apps/ohome"
+    },
+    {
+      "packageName": "@jeiiz/render",
+      "projectFolder": "xinse/render"
     }
   ]
 }
