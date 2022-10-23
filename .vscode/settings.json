@@ -4,8 +4,10 @@
     "autoinstaller",
     "autoinstallers",
     "clsx",
+    "gltf",
     "ofunc",
     "ohook",
+    "PMREM",
     "typecheck",
     "zlevel"
   ]

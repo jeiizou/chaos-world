@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import './App.css';
+
+import GlbSandbox from './components/glb-sandbox';
 
 function App() {
   const [count, setCount] = useState(0);
 
-  return <div className="App">app</div>;
+  return (
+    <div className="App">
+      <GlbSandbox></GlbSandbox>
+    </div>
+  );
 }
 
 export default App;
