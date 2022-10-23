@@ -40,6 +40,10 @@
     {
       "packageName": "wiki-site",
       "projectFolder": "apps/wiki-site"
+    },
+    {
+      "packageName": "@jeiiz/td-demos",
+      "projectFolder": "xinse/td-demos"
     }
   ]
 }

@@ -10,6 +10,7 @@ specifiers:
   '@rush-temp/ohome': file:./projects/ohome.tgz
   '@rush-temp/ohook': file:./projects/ohook.tgz
   '@rush-temp/render': file:./projects/render.tgz
+  '@rush-temp/td-demos': file:./projects/td-demos.tgz
   '@rush-temp/wiki-site': file:./projects/wiki-site.tgz
   '@tsconfig/docusaurus': ^1.0.5
   '@types/lodash-es': ^4.17.6
@@ -25,7 +26,6 @@ specifiers:
   sass: ^1.54.5
   twgl.js: ^5.0.1
   typescript-plugin-css-modules: ^3.4.0
-  vite-plugin-sass-dts: ^1.1.42
   vite-plugin-string: ^1.1.2
 
 dependencies:
@@ -38,6 +38,7 @@ dependencies:
   '@rush-temp/ohome': file:projects/ohome.tgz_sass@1.55.0
   '@rush-temp/ohook': file:projects/ohook.tgz
   '@rush-temp/render': file:projects/render.tgz_prettier@2.7.1+sass@1.55.0
+  '@rush-temp/td-demos': file:projects/td-demos.tgz_sass@1.55.0
   '@rush-temp/wiki-site': file:projects/wiki-site.tgz_esbuild@0.15.11
   '@tsconfig/docusaurus': 1.0.6
   '@types/lodash-es': 4.17.6
@@ -53,7 +54,6 @@ dependencies:
   sass: 1.55.0
   twgl.js: 5.1.0
   typescript-plugin-css-modules: 3.4.0
-  vite-plugin-sass-dts: 1.1.44_prettier@2.7.1+sass@1.55.0
   vite-plugin-string: 1.1.2
 
 packages:
@@ -11063,6 +11063,27 @@ packages:
       - less
       - postcss
       - prettier
+      - sass
+      - stylus
+      - supports-color
+      - terser
+    dev: false
+
+  file:projects/td-demos.tgz_sass@1.55.0:
+    resolution: {integrity: sha512-kGUYyzpNIfA7/vc/ozW1vyly6YAYRonlq5pENZPZk3MBGijgj4KVmYfXCm4n1DTA5eMxpfmlROSCmBqTD0UtGQ==, tarball: file:projects/td-demos.tgz}
+    id: file:projects/td-demos.tgz
+    name: '@rush-temp/td-demos'
+    version: 0.0.0
+    dependencies:
+      '@types/react': 18.0.21
+      '@types/react-dom': 18.0.6
+      '@vitejs/plugin-react': 2.1.0_vite@3.1.8
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      typescript: 4.8.4
+      vite: 3.1.8_sass@1.55.0
+    transitivePeerDependencies:
+      - less
       - sass
       - stylus
       - supports-color
