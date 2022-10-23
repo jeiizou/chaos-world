@@ -2,7 +2,7 @@ import { create2DScene, Polygon } from '@/index';
 
 export default function init(containerId: string) {
   const scene = create2DScene({
-    container: containerId
+    refQuery: containerId
   });
 
   // 逆时针三角点

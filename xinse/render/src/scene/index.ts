@@ -3,10 +3,10 @@ import * as twgl from 'twgl.js';
 import { Scene2D } from './2d/scene2D';
 
 interface I2DSceneConfig {
-  container: string | HTMLElement | HTMLCanvasElement;
+  refQuery: string | HTMLElement | HTMLCanvasElement;
 }
 
-function getContainer(container: I2DSceneConfig['container']): HTMLCanvasElement {
+function getContainer(container: I2DSceneConfig['refQuery']): HTMLCanvasElement {
   if (typeof container === 'string') {
     if (!document) {
       throw XError('no document object in environment');
@@ -23,7 +23,7 @@ function getContainer(container: I2DSceneConfig['container']): HTMLCanvasElement
  * @returns
  */
 export function create2DScene(config: I2DSceneConfig) {
-  const { container } = config;
+  const { refQuery: container } = config;
   const canvas = getContainer(container);
   const gl = twgl.getContext(canvas);
   return new Scene2D(gl);

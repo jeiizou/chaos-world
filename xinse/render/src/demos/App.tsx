@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './app.module.scss';
 
 import lineBasic from './components/line';
@@ -26,6 +26,17 @@ const Demos = [
 function App() {
   const [curDemoValue, setCurDemoValue] = useState(Demos[0].value);
 
+  useEffect(() => {
+    if (curDemoValue) {
+      const curDemoItem = Demos.find((item) => item.value === curDemoValue);
+      if (curDemoItem) {
+        setTimeout(() => {
+          curDemoItem.initFunc('#canvas-map');
+        }, 10);
+      }
+    }
+  }, [curDemoValue]);
+
   return (
     <div className={styles['sandbox-container']}>
       <div className={styles['sandbox-demos']}>
@@ -43,13 +54,15 @@ function App() {
         ))}
       </div>
       <div className={styles['sandbox-scene']}>
-        <canvas
-          style={{
-            width: '100%',
-            height: '100%'
-          }}
-          id="canvas-map"
-        ></canvas>
+        {curDemoValue && (
+          <canvas
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+            id="canvas-map"
+          ></canvas>
+        )}
       </div>
     </div>
   );
