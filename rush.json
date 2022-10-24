@@ -38,7 +38,7 @@
       "projectFolder": "xinse/render"
     },
     {
-      "packageName": "wiki-site",
+      "packageName": "@jeiiz/wiki-site",
       "projectFolder": "apps/wiki-site"
     },
     {
