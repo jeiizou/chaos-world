@@ -8,14 +8,14 @@ import {
   DirectionalLight,
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
-  SpotLight
+  SpotLight,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-function loadModel(onLoading) {
+function loadModel(onLoading: any) {
   const container = document.getElementById('container');
 
   if (!container) return;
@@ -79,7 +79,7 @@ function loadModel(onLoading) {
     },
     function (e) {
       console.error(e);
-    }
+    },
   );
 
   window.onresize = function () {

@@ -10,5 +10,10 @@ module.exports = {
   singleQuote: true,
 
   // 对于 ES5 而言, 尾逗号不能用于函数参数，因此使用它们只能用于数组
-  trailingComma: 'none'
+  trailingComma: 'all',
+
+  plugins: [
+    require.resolve('@trivago/prettier-plugin-sort-imports'),
+    require.resolve('prettier-plugin-tailwindcss'),
+  ],
 };
