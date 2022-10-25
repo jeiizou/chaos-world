@@ -5,7 +5,6 @@ import {
   sRGBEncoding,
   AmbientLight,
   PerspectiveCamera,
-  DirectionalLight,
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
   SpotLight,
@@ -53,12 +52,12 @@ function loadModel(onLoading: any) {
 
   const loader = new GLTFLoader();
 
-  const dracoLoader = new DRACOLoader();
+  // const dracoLoader = new DRACOLoader();
 
-  dracoLoader.setDecoderConfig({ type: 'js' });
-  dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
+  // dracoLoader.setDecoderConfig({ type: 'js' });
+  // dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 
-  loader.setDRACOLoader(dracoLoader);
+  // loader.setDRACOLoader(dracoLoader);
 
   console.log('start load');
   const time = new Date().getTime();
