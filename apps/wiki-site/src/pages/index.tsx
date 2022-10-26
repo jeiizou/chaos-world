@@ -11,7 +11,7 @@ function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">这里放一个旋转的3d模型</div>
+      <div className="container">Jeiiz's World</div>
     </header>
   );
 }
@@ -19,7 +19,7 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title={`Hello from ${siteConfig.title}`}>
+    <Layout title={`jeiiz's ${siteConfig.title}`}>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
