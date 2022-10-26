@@ -8,6 +8,8 @@ import {
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
   SpotLight,
+  CameraHelper,
+  Group,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -41,8 +43,11 @@ function loadModel(onLoading: any) {
   spotLight.distance = 100;
   scene.add(spotLight);
 
-  const camera = new PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 100);
-  camera.position.set(5, 2, 8);
+  const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 10000);
+  camera.position.set(0, 0, 150);
+
+  // const helper = new CameraHelper( camera );
+  // scene.add( helper );
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0.5, 0);
@@ -52,23 +57,24 @@ function loadModel(onLoading: any) {
 
   const loader = new GLTFLoader();
 
-  // const dracoLoader = new DRACOLoader();
+  const dracoLoader = new DRACOLoader();
 
-  // dracoLoader.setDecoderConfig({ type: 'js' });
-  // dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
+  dracoLoader.setDecoderConfig({ type: 'js' });
+  dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 
-  // loader.setDRACOLoader(dracoLoader);
+  loader.setDRACOLoader(dracoLoader);
 
   console.log('start load');
   const time = new Date().getTime();
+  let model: Group;
   loader.load(
-    '/dog.glb',
+    '/revenant_a_gaze_eternal_apex_legends_fandom.glb',
     function (gltf) {
       const loadedTime = new Date().getTime() - time;
       console.log('rendered', `cost ${loadedTime / 1000}s`);
-      const model = gltf.scene;
-      model.position.set(0, 0, 0);
-      model.scale.set(0.1, 0.1, 0.1);
+      model = gltf.scene;
+      model.position.set(-80, -60, 0);
+      model.scale.set(2, 2, 2);
       scene.add(model);
 
       animate();
@@ -93,8 +99,9 @@ function loadModel(onLoading: any) {
     controls.update();
 
     const time = performance.now() / 1000;
-    spotLight.position.x = Math.cos(time) * 45;
-    spotLight.position.z = Math.sin(time) * 45;
+    spotLight.position.x = Math.cos(time) * 35;
+    spotLight.position.z = Math.sin(time) * 35;
+    // model.rotation.y += 0.01;
 
     renderer.render(scene, camera);
   }

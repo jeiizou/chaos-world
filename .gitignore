@@ -73,3 +73,8 @@ common/autoinstallers/*/.npmrc
 .heft
 *.gltf
 *.glb
+*.sass.d.ts
+*.scss.d.ts
+*.less.d.ts
+
+public/models/
