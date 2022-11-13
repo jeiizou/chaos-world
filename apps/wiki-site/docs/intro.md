@@ -2,4 +2,4 @@
 description: Create a doc page with rich content.
 ---
 
-# Hello Wiki
+# Wiki For Front End Develop
