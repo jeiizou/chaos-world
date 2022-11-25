@@ -33,3 +33,16 @@
   --ifm-background-color: #111218;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.plugin-pages .navbar {
+  background-color: rgba(0, 0, 0, 0);
+  --ifm-navbar-link-color: #fff;
+}
+
+.plugin-pages .footer {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.plugin-pages .navbar .clean-btn {
+  color: #fff;
+}

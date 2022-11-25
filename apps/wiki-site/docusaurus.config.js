@@ -58,6 +58,8 @@ const config = {
     ({
       navbar: {
         title: "Jeiiz's World",
+        // style: 'dark',
+        hideOnScroll: true,
         // logo: {
         //   alt: 'My Site Logo',
         //   src: 'img/logo.svg'
@@ -78,7 +80,7 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
+        // style: 'dark',
         links: [
           // {
           //   title: 'Docs',
@@ -140,6 +142,7 @@ const config = {
         },
       };
     },
+    'docusaurus-plugin-sass',
   ],
 };
 
