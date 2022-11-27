@@ -6,9 +6,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'world',
+  title: 'wiki & blog',
   tagline: '',
-  url: 'https://localhost:3000',
+  url: 'https://wiki.jeiizou.site',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
