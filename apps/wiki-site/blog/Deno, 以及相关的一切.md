@@ -38,7 +38,7 @@ Deno和Node实际上是同一个作者Ryan Dahl(以下简称Ry)的作品. Deno�
 
 实际上, Deno的目标可能不是替代Node. 为什么这么说, 我们来看看Deno是如何出现的.
 
-![](./img/deno/js-timeline.png)
+![](/img/deno/js-timeline.png)
 
 我们先来看看这些年前端开发中的一些重要历史节点. 你会发现, 实际上Node已经是一个历经了11年的框架了. 
     
@@ -66,11 +66,11 @@ Node项目最早创立于2007年, 在2012年之后由社区接管其发展.  Ry�
 3. 使用GYP构建系统(目前Node是GYP的唯一用户), Google自己都放弃了GYP而采用了GN. 
 4. 使用package.json来管理模块版本, 在node的发布版本中包含了npm, 这个复杂的模块控制方案和一个模块化(私有控制)的存储库. 提出了一个`module`作为文件目录的概念, 这不是一个严格必要的抽象, 也不是网络中存在的抽象, 现在的package.json包含了各种不必要的信息: 许可证/仓库/描述等.
 
-  ![](./img/deno/slide-12.jpg)
+  ![](/img/deno/slide-12.jpg)
 
 6. node_modules: 极大的复杂了模块分辨算法, 偏离了浏览器语义.
    
-  ![](.img/deno/slide-14.jpg)
+  ![](/img/deno/slide-14.jpg)
 
 7. `require('module')`没有扩展名'.js'. 增加了不必要的模块加载器的分析复杂度, 和浏览器的行为不同. 
 8. `index.js`: 不必要的复杂度. 
@@ -85,7 +85,7 @@ Node项目最早创立于2007年, 在2012年之后由社区接管其发展.  Ry�
 
 那么, Node是什么?  简单的说, Node是一个js的不依赖于`browser`的运行环境. 
 
-![](./img/deno/node-structor.png)
+![](/img/deno/node-structor.png)
 
 node是基于C++写的, 本质上就是一个C++应用, 底层主要由几个核心模块构成:
 
@@ -102,7 +102,7 @@ node是基于C++写的, 本质上就是一个C++应用, 底层主要由几个核
 
 ### Deno 架构简析
 
-![image](./img/deno/demo_process.webp)
+![image](/img/deno/demo_process.webp)
 
 - 底层以Rust实现
 
@@ -116,7 +116,7 @@ Deno通过v8支持运行js, 然后通过快照缓存了一个tsc的引擎, 原�
 
 #### 结构划分
 
-![image](./img/deno/deno-process.jpg)
+![image](/img/deno/deno-process.jpg)
 
 Deno的结构可以分成三层: 前端V8, 中端libdeno, 后端rust.
 
