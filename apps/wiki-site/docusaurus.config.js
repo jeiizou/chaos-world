@@ -73,11 +73,15 @@ const config = {
             label: 'Wiki',
           },
           { to: '/blog', label: 'Blog', position: 'right' },
-          // {
-          //   href: 'https://github.com/facebook/docusaurus',
-          //   label: 'GitHub',
-          //   position: 'right'
-          // }
+          {
+            href: 'https://github.com/jeiizou',
+            label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'search',
+            position: 'right',
+          },
         ],
       },
       footer: {
@@ -128,6 +132,13 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      algolia: {
+        // Algolia 提供的应用 ID
+        appId: 'YOUR_APP_ID',
+        //  公开 API 密钥：提交它没有危险
+        apiKey: 'YOUR_SEARCH_API_KEY',
+        indexName: 'YOUR_INDEX_NAME',
       },
     }),
 
