@@ -11,8 +11,10 @@
     "ohook",
     "OLAP",
     "PMREM",
+    "pnpm",
     "trivago",
     "typecheck",
+    "webfactory",
     "zlevel"
   ]
 }

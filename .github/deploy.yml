@@ -16,8 +16,10 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
+      - name: check to wiki-site
+        run: cd apps/wiki-site
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Test build website
         run: pnpm run build
   deploy:
@@ -38,5 +40,6 @@ jobs:
         run: |
           git config --global user.email "jeiizou@qq.com"
           git config --global user.name "jeiizou"
+          cd apps/wiki-site
           pnpm run install --frozen-lockfile
           pnpm run deploy
