@@ -58,7 +58,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Jeiiz's World",
+        title: 'WIKI.JEIIZOU.SITE',
         // style: 'dark',
         hideOnScroll: true,
         // logo: {
@@ -127,7 +127,7 @@ const config = {
           //   ]
           // }
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Wiki doc, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} WIKI.JEIIZOU.SITE, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -138,7 +138,7 @@ const config = {
         appId: 'YOUR_APP_ID',
         //  公开 API 密钥：提交它没有危险
         apiKey: 'YOUR_SEARCH_API_KEY',
-        indexName: 'YOUR_INDEX_NAME',
+        indexName: '/docs/intro',
       },
     }),
 
