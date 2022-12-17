@@ -42,6 +42,11 @@ const config = {
         },
         blog: {
           showReadingTime: true,
+          blogSidebarTitle: '全部博文',
+          feedOptions: {
+            type: 'all',
+            copyright: `Copyright © ${new Date().getFullYear()} WIKI.JEIIZOU.SITE, Inc.`,
+          },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -135,10 +140,10 @@ const config = {
       },
       algolia: {
         // Algolia 提供的应用 ID
-        appId: 'YOUR_APP_ID',
+        appId: 'R2IYF7ETH7',
         //  公开 API 密钥：提交它没有危险
-        apiKey: 'YOUR_SEARCH_API_KEY',
-        indexName: '/docs/intro',
+        apiKey: '599cec31baffa4868cae4e79f180729b',
+        indexName: 'docsearch',
       },
     }),
 

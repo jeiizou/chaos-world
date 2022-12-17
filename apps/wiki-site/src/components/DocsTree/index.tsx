@@ -1,5 +1,7 @@
 import useGlobalData from '@docusaurus/useGlobalData';
 import React from 'react';
+import styles from './index.module.scss';
+import Link from '@docusaurus/Link';
 
 export default function DocsTree() {
   const globalData = useGlobalData();
@@ -15,9 +17,15 @@ export default function DocsTree() {
       }}
     >
       <div className="flex flex-wrap">
-        {docs?.map((item) => (
-          <div className="p-2">{item.id}</div>
-        ))}
+        {docs?.map((item) => {
+          const pathList = item.path.split('/');
+          const lastName = pathList[pathList.length - 1];
+          return lastName ? (
+            <Link key={item.id} to={item.path}>
+              <div className={styles.tagItem}>{pathList[pathList.length - 1]}</div>
+            </Link>
+          ) : null;
+        })}
       </div>
     </span>
   );
