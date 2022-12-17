@@ -28,6 +28,10 @@ const config = {
     locales: ['zh-Hans'],
   },
 
+  markdown: {
+    mermaid: true,
+  },
+
   presets: [
     [
       'classic',
@@ -160,6 +164,7 @@ const config = {
       };
     },
     'docusaurus-plugin-sass',
+    '@docusaurus/theme-mermaid',
   ],
 };
 

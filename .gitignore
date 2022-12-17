@@ -78,3 +78,4 @@ common/autoinstallers/*/.npmrc
 *.less.d.ts
 
 public/models/
+.obsidian
