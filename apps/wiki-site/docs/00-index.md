@@ -1,5 +1,6 @@
 ---
-description: Create a doc page with rich content.
+description: Wiki For Front End Developer
+slug: /
 ---
 
 import DocsTree from '@site/src/components/DocsTree';
