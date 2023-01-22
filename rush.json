@@ -30,20 +30,16 @@
       "projectFolder": "packages/odesktop"
     },
     {
+      "packageName": "@jeiiz/render",
+      "projectFolder": "packages/turbine"
+    },
+    {
       "packageName": "@jeiiz/ohome",
       "projectFolder": "apps/ohome"
     },
     {
-      "packageName": "@jeiiz/render",
-      "projectFolder": "xinse/render"
-    },
-    {
       "packageName": "@jeiiz/wiki-site",
       "projectFolder": "apps/wiki-site"
-    },
-    {
-      "packageName": "@jeiiz/td-demos",
-      "projectFolder": "xinse/td-demos"
     }
   ]
 }
