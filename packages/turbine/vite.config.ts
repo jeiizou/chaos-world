@@ -10,20 +10,20 @@ export default defineConfig({
   plugins: [react(), (vitePluginString as any).default(), sassDts(), dts()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'xinse',
       // the proper extensions will be added
-      fileName: 'xinse'
+      fileName: 'xinse',
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['react', 'react-dom'],
-      output: {}
-    }
-  }
+      output: {},
+    },
+  },
 });

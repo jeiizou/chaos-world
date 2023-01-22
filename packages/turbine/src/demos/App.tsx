@@ -9,18 +9,18 @@ const Demos = [
   {
     label: '基础',
     value: 'basic',
-    initFunc: lineBasic
+    initFunc: lineBasic,
   },
   {
     label: '椭圆',
     value: 'ellipse',
-    initFunc: ellipseBasic
+    initFunc: ellipseBasic,
   },
   {
     label: '几何',
     value: 'polygon',
-    initFunc: polygonBasic
-  }
+    initFunc: polygonBasic,
+  },
 ];
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
           <canvas
             style={{
               width: '100%',
-              height: '100%'
+              height: '100%',
             }}
             id="canvas-map"
           ></canvas>

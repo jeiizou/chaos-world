@@ -15,7 +15,7 @@ export class Ellipse extends ObjectBase {
     position: Vector3Row,
     radiusPair: Vector2Row,
     sampleNumber: number = 150,
-    colors?: Vector4Row[]
+    colors?: Vector4Row[],
   ) {
     super();
     const xMin = position[0] - radiusPair[0];
@@ -64,17 +64,17 @@ export class Ellipse extends ObjectBase {
       lastUsedProgramInfo,
       context: gl,
       setLastUsedBufferInfo,
-      setLastUsedProgramInfo
+      setLastUsedProgramInfo,
     } = scene;
 
     const programInfo = getProgramInfoM(gl);
     const bufferInfo = createBufferInfoFromArrays(gl, {
       a_position: this.positionArray,
-      a_color: this.colorArray
+      a_color: this.colorArray,
     });
     const uniforms = {
       u_matrix: uMatrix.value,
-      u_colorMulti: [1, 1, 1, 1]
+      u_colorMulti: [1, 1, 1, 1],
     };
 
     let bindBuffers = false;

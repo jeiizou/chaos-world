@@ -10,8 +10,8 @@ export class Scene2D {
     // 场景配置属性
     private config: IScene2DConfig = {
       // 背景颜色
-      clearColor: [1, 1, 1, 1]
-    }
+      clearColor: [1, 1, 1, 1],
+    },
   ) {
     // 设置视口
     resizeCanvasToDisplaySize(this.gl.canvas);

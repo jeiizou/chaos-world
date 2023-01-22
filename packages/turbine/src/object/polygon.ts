@@ -36,16 +36,16 @@ export class Polygon extends ObjectBase {
       lastUsedProgramInfo,
       context: gl,
       setLastUsedBufferInfo,
-      setLastUsedProgramInfo
+      setLastUsedProgramInfo,
     } = scene;
     const programInfo = getProgramInfoM(gl);
     const bufferInfo = createBufferInfoFromArrays(gl, {
       a_position: this.positionArray,
-      a_color: this.colorArray
+      a_color: this.colorArray,
     });
     const uniforms = {
       u_matrix: uMatrix.value,
-      u_colorMulti: [1, 1, 1, 1]
+      u_colorMulti: [1, 1, 1, 1],
     };
     let bindBuffers = false;
     if (programInfo !== lastUsedProgramInfo) {

@@ -30,7 +30,7 @@ export class PerspectiveCamera extends CameraBase {
     const cameraMatrix = Matrix4.identity().setLookAt(
       new Vector3(...config.position),
       new Vector3(...config.target),
-      new Vector3(...config.up)
+      new Vector3(...config.up),
     );
 
     const viewMatrix = cameraMatrix.inverse();

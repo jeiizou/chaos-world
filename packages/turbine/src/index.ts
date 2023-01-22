@@ -6,4 +6,5 @@ export { Matrix } from './math-helper/matrix-base';
 export { Matrix4 } from './math-helper/matrix4';
 export { isPowerOf2, getRadiusFromAngle } from './math-helper/utils';
 export { Vector, Vector2, Vector3, Vector4 } from './math-helper/vector';
-export { create2DScene } from './scene/index';
+
+export { Turbine } from './core/turbine';
