@@ -27,7 +27,7 @@ export class Turbine extends SingleBase {
   /**
    * 加载资源
    */
-  resource() {}
+  load() {}
 
   /**
    * 设置环境
