@@ -18,14 +18,6 @@
   "variants": [],
   "projects": [
     {
-      "packageName": "@jeiiz/ofunc",
-      "projectFolder": "packages/ofunc"
-    },
-    {
-      "packageName": "@jeiiz/ohook",
-      "projectFolder": "packages/ohook"
-    },
-    {
       "packageName": "@jeiiz/odesktop",
       "projectFolder": "packages/odesktop"
     },
