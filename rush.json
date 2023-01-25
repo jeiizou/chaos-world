@@ -36,10 +36,6 @@
     {
       "packageName": "@jeiiz/ohome",
       "projectFolder": "apps/ohome"
-    },
-    {
-      "packageName": "@jeiiz/wiki-site",
-      "projectFolder": "apps/wiki-site"
     }
   ]
 }
