@@ -18,15 +18,11 @@
   "variants": [],
   "projects": [
     {
-      "packageName": "@jeiiz/odesktop",
-      "projectFolder": "packages/odesktop"
+      "packageName": "cino-os",
+      "projectFolder": "packages/cino-os"
     },
     {
-      "packageName": "@jeiiz/ohome",
-      "projectFolder": "packages/ohome"
-    },
-    {
-      "packageName": "@jeiiz/render",
+      "packageName": "turbine",
       "projectFolder": "packages/turbine"
     }
   ]
