@@ -22,12 +22,12 @@
       "projectFolder": "packages/odesktop"
     },
     {
-      "packageName": "@jeiiz/render",
-      "projectFolder": "packages/turbine"
+      "packageName": "@jeiiz/ohome",
+      "projectFolder": "packages/ohome"
     },
     {
-      "packageName": "@jeiiz/ohome",
-      "projectFolder": "apps/ohome"
+      "packageName": "@jeiiz/render",
+      "projectFolder": "packages/turbine"
     }
   ]
 }
