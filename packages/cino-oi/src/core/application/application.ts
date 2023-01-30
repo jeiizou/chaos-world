@@ -1,6 +1,4 @@
-import { ReactNode } from 'react';
-import ReactDOM from 'react-dom';
-import { AppInstance, AppType } from '../types';
+import { AppInstance, AppType } from '@/types';
 
 export class Application {
   static createAppFromAppInstance(appIns: AppInstance) {

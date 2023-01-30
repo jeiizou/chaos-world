@@ -18,8 +18,8 @@
   "variants": [],
   "projects": [
     {
-      "packageName": "cino-os",
-      "projectFolder": "packages/cino-os"
+      "packageName": "cino-oi",
+      "projectFolder": "packages/cino-oi"
     },
     {
       "packageName": "turbine",
