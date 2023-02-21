@@ -18,7 +18,7 @@
   "variants": [],
   "projects": [
     {
-      "packageName": "cino-oi",
+      "packageName": "cino",
       "projectFolder": "packages/cino-oi"
     },
     {
