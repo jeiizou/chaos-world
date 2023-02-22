@@ -15,4 +15,14 @@ export interface CinoApplicationConfig {
 
 export class CinoApplication {
   constructor(config: CinoApplicationConfig) {}
+
+  /**
+   * activate self
+   */
+  activate() {}
+
+  /**
+   * deactivate self
+   */
+  deactivate() {}
 }

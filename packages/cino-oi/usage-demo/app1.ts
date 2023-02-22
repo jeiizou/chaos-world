@@ -1,9 +1,9 @@
-import { CinoApi } from 'cino';
+import { Cino, CinoContext } from 'cino';
 
 // 创建应用配置
-const AppConfig = CinoApi.createApp({
+const AppConfig = Cino.createApp({
   // 应用被激活
-  onActivate: (context: CinoApi) => {
+  onActivate: (context: CinoContext) => {
     // 应用被激活的时候创建一个窗口
     const window = context.createInterFace({
       title: '简单应用的主要窗口',
