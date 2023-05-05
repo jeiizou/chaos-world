@@ -21,6 +21,7 @@
     "trivago",
     "typecheck",
     "webfactory",
-    "zlevel"
+    "zlevel",
+    "zustand"
   ]
 }

@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { useCino } from './hooks/useCino';
+import Desktop from './components/desktop';
+
+import './app.scss';
 
 export const App = () => {
   const { cino } = useCino();
@@ -10,5 +13,9 @@ export const App = () => {
     }
   }, [cino]);
 
-  return <div>123</div>;
+  return (
+    <>
+      <Desktop />
+    </>
+  );
 };

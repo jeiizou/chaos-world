@@ -1,0 +1,35 @@
+.mode-switcher {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #d9d9d9;
+  border: 1px solid #c4c2c2;
+
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 12px;
+  z-index: 100;
+}
+
+.mode-switcher__item {
+  cursor: pointer;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+
+  & > img {
+    width: 14px;
+    height: 14px;
+    font-size: 12;
+  }
+
+  &--active {
+    background-color: #fff;
+  }
+}
+
+.mode-switcher__item + .mode-switcher__item {
+  margin-left: 4px;
+}
