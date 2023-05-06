@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useCino } from './hooks/useCino';
+import { useCino } from './hooks/use-cino';
 import Desktop from './components/desktop';
 
 import './app.scss';

@@ -7,6 +7,7 @@ import windowSvg from '@/common/assets/imgs/window.svg';
 import gridSvg from '@/common/assets/imgs/grid.svg';
 import WindowLayout from '../window-layout';
 import WindowBox from '../window-box';
+import ContextMenu from '../contextmenu';
 
 type DesktopProps = {
   /**
@@ -36,6 +37,7 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         <WindowBox windowName="window1">window1</WindowBox>
         <WindowBox windowName="window2">window2</WindowBox>
       </WindowLayout>
+      <ContextMenu></ContextMenu>
     </Background>
   );
 }
