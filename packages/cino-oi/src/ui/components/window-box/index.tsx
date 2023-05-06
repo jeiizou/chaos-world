@@ -10,9 +10,10 @@ import { EVENT_TYPE, WindowModel } from '../window-layout/window-model';
 import { useMove } from '@/ui/hooks/basic/use-move';
 
 type WindowBoxProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   defaultPosition?: [number, number];
-  windowId: string;
+  windowId?: string;
+  windowName?: string;
 };
 
 const paddingOffset = 10;
@@ -21,6 +22,7 @@ export default function WindowBox({
   children,
   defaultPosition = [paddingOffset, paddingOffset],
   windowId: id,
+  windowName = 'app-name',
 }: WindowBoxProps): React.ReactElement {
   const windowId = useMemo(() => {
     return id ?? nanoid();
@@ -31,6 +33,7 @@ export default function WindowBox({
   const domHandle = useRef<HTMLDivElement>(null);
   const size = useSize(domHandle);
   const debouncedSize = useDebounce(size, { wait: 200 });
+  const windowInfo = useMemo(() => windowMap?.[windowId], [windowId, windowMap]);
 
   // 移动相关逻辑
   const [isMoving, setIsMoving] = useState(false);
@@ -73,9 +76,9 @@ export default function WindowBox({
 
   useEffect(() => {
     if (emit$ && windowId && !windowMap[windowId]) {
-      emit$(EVENT_TYPE.APP_START, { id: windowId });
+      emit$(EVENT_TYPE.APP_START, { id: windowId, name: windowName });
     }
-  }, [windowId, emit$]);
+  }, [windowId, emit$, windowName]);
 
   // 窗口尺寸管理
   useEffect(() => {
@@ -108,6 +111,7 @@ export default function WindowBox({
         maxHeight: (containerSize?.height ?? 0) - paddingOffset || undefined,
         userSelect: isMoving ? 'none' : undefined,
         zIndex: winLevel,
+        display: windowInfo?.visible ? undefined : 'none',
       }}
       ref={domHandle}
       onMouseUp={endMoving}
@@ -124,12 +128,12 @@ export default function WindowBox({
           <div className={styles['window-box__header__ctrl__item']}>
             <img src={closeSvg} alt="ctrl_close" />
           </div>
-          <div className={styles['window-box__header__ctrl__item']}>
+          <div className={styles['window-box__header__ctrl__item']} onClick={min}>
             <img src={minusSvg} alt="ctrl_minus" />
           </div>
         </div>
         <div className={styles['window-box__header__title']} onMouseDown={(e) => e.stopPropagation()}>
-          app-name
+          {windowName}
         </div>
       </div>
       {children}

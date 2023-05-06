@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styles from './styles.module.scss';
 import { EVENT_TYPE, WindowModel } from './window-model';
 import { useSize } from 'ahooks';
+import WindowDocker from '../window-docker';
 
 export type WindowLayoutInnerProps = {
   children: React.ReactNode;
@@ -39,15 +40,18 @@ export default function WindowLayoutInner({ children }: WindowLayoutInnerProps):
   };
 
   return (
-    <div
-      className={styles['window-layout']}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      onMouseUp={onMouseLeave}
-      onClick={onClick}
-      ref={containerDom}
-    >
-      {children}
-    </div>
+    <>
+      <div
+        className={styles['window-layout']}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        onMouseUp={onMouseLeave}
+        onClick={onClick}
+        ref={containerDom}
+      >
+        {children}
+        <WindowDocker></WindowDocker>
+      </div>
+    </>
   );
 }

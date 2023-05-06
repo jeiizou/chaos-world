@@ -23,7 +23,7 @@ export type WindowMapType = Record<
   string, // window key
   {
     visible: boolean;
-    size?: SizeType;
+    name: string;
   }
 >;
 
@@ -94,6 +94,7 @@ function useWindowModel() {
       setWindowMap((map) => {
         map[val.id] = {
           visible: true,
+          name: val.name,
         };
         return { ...map };
       });
@@ -106,6 +107,16 @@ function useWindowModel() {
         return [...v];
       });
     }
+  });
+
+  // 窗口最小化
+  subscribe$(EVENT_TYPE.WIN_MIN, (val) => {
+    setWindowMap((map) => {
+      if (map[val?.id]) {
+        map[val?.id].visible = false;
+      }
+      return { ...map };
+    });
   });
 
   return {

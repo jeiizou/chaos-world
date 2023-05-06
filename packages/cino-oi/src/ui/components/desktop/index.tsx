@@ -33,8 +33,8 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         ]}
       ></ModeSwitcher>
       <WindowLayout>
-        <WindowBox>window1</WindowBox>
-        <WindowBox>window2</WindowBox>
+        <WindowBox windowName="window1">window1</WindowBox>
+        <WindowBox windowName="window2">window2</WindowBox>
       </WindowLayout>
     </Background>
   );

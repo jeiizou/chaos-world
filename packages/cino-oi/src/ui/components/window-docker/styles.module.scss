@@ -1,0 +1,54 @@
+$size: 30px;
+$statusSize: 8px;
+
+.window-docker {
+  position: absolute;
+  z-index: 200;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba($color: #000, $alpha: 0.2);
+  padding: 10px;
+  border-radius: 10px;
+
+  display: flex;
+}
+
+.window-docker__item {
+  background-color: #efefef;
+  width: $size;
+  height: $size;
+  border-radius: $size/2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #efefef;
+  cursor: pointer;
+  position: relative;
+
+  & > img {
+    width: $size * 0.65;
+    height: $size * 0.65;
+  }
+
+  &:hover {
+    background-color: #aaa;
+  }
+
+  &--hidden {
+    &::after {
+      position: absolute;
+      right: 0;
+      top: 0;
+      content: '';
+      width: $statusSize;
+      height: $statusSize;
+      border-radius: $statusSize / 2;
+      background-color: red;
+    }
+  }
+}
+
+.window-docker__item + .window-docker__item {
+  margin-left: 10px;
+}
