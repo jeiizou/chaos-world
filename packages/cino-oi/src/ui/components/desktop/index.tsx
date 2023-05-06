@@ -8,6 +8,7 @@ import gridSvg from '@/common/assets/imgs/grid.svg';
 import WindowLayout from '../window-layout';
 import WindowBox from '../window-box';
 import ContextMenu from '../contextmenu';
+import IframeRender from '../app-render/iframe-render';
 
 type DesktopProps = {
   /**
@@ -34,8 +35,12 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         ]}
       ></ModeSwitcher>
       <WindowLayout>
-        <WindowBox windowName="window1">window1</WindowBox>
-        <WindowBox windowName="window2">window2</WindowBox>
+        <WindowBox windowName="baidu">
+          <IframeRender url="https://www.baidu.com"></IframeRender>
+        </WindowBox>
+        <WindowBox windowName="bilibili">
+          <IframeRender url="https://www.bilibili.com"></IframeRender>
+        </WindowBox>
       </WindowLayout>
       <ContextMenu></ContextMenu>
     </Background>

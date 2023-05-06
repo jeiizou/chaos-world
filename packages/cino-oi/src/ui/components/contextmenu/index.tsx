@@ -29,10 +29,17 @@ export default function ContextMenu({}: ContextMenuProps): React.ReactElement {
     //     },
     // },
     {
-      name: '排序',
+      name: '整理窗口',
       value: 'sort',
       handle: () => {
-        console.log('表单排序');
+        console.log('整理窗口');
+      },
+    },
+    {
+      name: '切换模式',
+      value: 'change-mode',
+      handle: () => {
+        console.log('切换模式');
       },
     },
   ];

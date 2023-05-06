@@ -16,6 +16,7 @@ export default function WindowDocker({ position }: WindowDockerProps): React.Rea
     <div className={styles['window-docker']}>
       {Object.keys(windowMap).map((windowKey) => (
         <div
+          key={windowKey}
           className={classnames(styles['window-docker__item'], {
             [styles['window-docker__item--hidden']]: !windowMap[windowKey].visible,
           })}
