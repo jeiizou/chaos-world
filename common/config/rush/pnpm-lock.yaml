@@ -14,6 +14,7 @@ specifiers:
   typescript: ^4.6.4
   typescript-plugin-css-modules: ^3.4.0
   vite-plugin-string: ^1.1.2
+  zustand: ~4.3.8
 
 dependencies:
   '@rush-temp/cino': file:projects/cino.tgz
@@ -29,6 +30,7 @@ dependencies:
   typescript: 4.8.4
   typescript-plugin-css-modules: 3.4.0_typescript@4.8.4
   vite-plugin-string: 1.1.2
+  zustand: 4.3.8
 
 packages:
 
@@ -1597,6 +1599,12 @@ packages:
     hasBin: true
     dev: false
 
+  /nanoid/4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
+
   /needle/3.1.0:
     resolution: {integrity: sha512-gCE9weDhjVGCRqS8dwDR/D3GTAeyXLXuqp7I8EzH6DllZGXSUyxuqqLh+YX9rMAWaaTFyVAg6rHGL25dqvczKw==}
     engines: {node: '>= 4.4.x'}
@@ -2106,6 +2114,12 @@ packages:
     deprecated: Please see https://github.com/lydell/urix#deprecated
     dev: false
 
+  /use-sync-external-store/1.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dev: false
+
   /use-sync-external-store/1.2.0_react@18.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
@@ -2245,6 +2259,21 @@ packages:
       commander: 2.20.3
     dev: false
 
+  /zustand/4.3.8:
+    resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      use-sync-external-store: 1.2.0
+    dev: false
+
   /zustand/4.3.8_react@18.2.0:
     resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
     engines: {node: '>=12.7.0'}
@@ -2262,7 +2291,7 @@ packages:
     dev: false
 
   file:projects/cino.tgz:
-    resolution: {integrity: sha512-j1cbcTMGuGycw0NySbVNnfm21kq3k+r8+ynXumvNHC93NzvtzjFaE7gTwG8DHxyFZvrh65M95B6odCN9A5jjcw==, tarball: file:projects/cino.tgz}
+    resolution: {integrity: sha512-s4R2lMLdro4zCNoa1vLq8Ory3xcpYJfPvZh17a0HzzwdTPw7e270/r1JGiy6hHjb4Ga4KYWdVuUVQmQ0qjnbLA==, tarball: file:projects/cino.tgz}
     name: '@rush-temp/cino'
     version: 0.0.0
     dependencies:
@@ -2272,7 +2301,7 @@ packages:
       '@vitejs/plugin-react': 2.1.0_vite@3.1.8
       ahooks: 3.7.7_react@18.2.0
       classnames: 2.3.2
-      nanoid: 4.0.0
+      nanoid: 4.0.2
       prettier: 2.7.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

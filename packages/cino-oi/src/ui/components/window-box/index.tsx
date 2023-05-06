@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { nanoid } from 'nanoid';
 import styles from './style.module.scss';
 
 import { useDebounce, useSize } from 'ahooks';
@@ -11,6 +12,7 @@ import { useMove } from '@/ui/hooks/basic/use-move';
 type WindowBoxProps = {
   children: React.ReactNode;
   defaultPosition?: [number, number];
+  windowId: string;
 };
 
 const paddingOffset = 10;
@@ -18,14 +20,20 @@ const paddingOffset = 10;
 export default function WindowBox({
   children,
   defaultPosition = [paddingOffset, paddingOffset],
+  windowId: id,
 }: WindowBoxProps): React.ReactElement {
-  const { containerSize, subscribe$, emit$, zlevelArr, activeWindowId } = WindowModel.useContext();
+  const windowId = useMemo(() => {
+    return id ?? nanoid();
+  }, [id]);
 
-  const [isMoving, setIsMoving] = useState(false);
+  const { containerSize, subscribe$, emit$, zlevelArr, activeWindowId, windowMap } = WindowModel.useContext();
+
   const domHandle = useRef<HTMLDivElement>(null);
   const size = useSize(domHandle);
   const debouncedSize = useDebounce(size, { wait: 200 });
 
+  // 移动相关逻辑
+  const [isMoving, setIsMoving] = useState(false);
   const { startMoving, moving, endMoving, position, setBoundingBox, setPosition } = useMove({
     defaultPosition: defaultPosition,
   });
@@ -50,6 +58,46 @@ export default function WindowBox({
     endMoving();
   });
 
+  // 层叠关系管理
+  const winLevel = useMemo(() => {
+    let index = zlevelArr?.indexOf(windowId);
+    if (~index) {
+      return zlevelArr?.length - index;
+    }
+    return undefined;
+  }, [windowId, zlevelArr]);
+
+  const focusCurrent = () => {
+    emit$(EVENT_TYPE.WIN_FOCUS, { id: windowId });
+  };
+
+  useEffect(() => {
+    if (emit$ && windowId && !windowMap[windowId]) {
+      emit$(EVENT_TYPE.APP_START, { id: windowId });
+    }
+  }, [windowId, emit$]);
+
+  // 窗口尺寸管理
+  useEffect(() => {
+    if (debouncedSize) {
+      emit$(EVENT_TYPE.WIN_RESIZE, {
+        id: windowId,
+        size: { ...debouncedSize },
+      });
+    }
+  }, [debouncedSize]);
+
+  // 按钮操作管理
+  const max = () => {
+    if (domHandle.current) {
+      domHandle.current.style.width = `${containerSize?.width ?? 0 - paddingOffset * 2}px`;
+      domHandle.current.style.height = `${containerSize?.height ?? 0 - paddingOffset * 2}px`;
+      setPosition([paddingOffset, paddingOffset]);
+    }
+  };
+  const min = () => emit$(EVENT_TYPE.WIN_MIN, { id: windowId });
+  const close = () => emit$(EVENT_TYPE.WIN_CLOSE, { id: windowId });
+
   return (
     <div
       className={styles['window-box']}
@@ -59,9 +107,11 @@ export default function WindowBox({
         maxWidth: (containerSize?.width ?? 0) - paddingOffset || undefined,
         maxHeight: (containerSize?.height ?? 0) - paddingOffset || undefined,
         userSelect: isMoving ? 'none' : undefined,
+        zIndex: winLevel,
       }}
       ref={domHandle}
       onMouseUp={endMoving}
+      onMouseDown={focusCurrent}
     >
       <div
         className={styles['window-box__header']}
@@ -78,9 +128,7 @@ export default function WindowBox({
             <img src={minusSvg} alt="ctrl_minus" />
           </div>
         </div>
-        <div className={styles['window-box__header__title']} onMouseDown={(e) => e.stopPropagation()}>
-          app-name
-        </div>
+        <div className={styles['window-box__header__title']}>app-name</div>
       </div>
       {children}
     </div>

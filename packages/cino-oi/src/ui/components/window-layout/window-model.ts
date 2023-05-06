@@ -1,6 +1,7 @@
 import { createModel } from '@/ui/hooks/basic/use-model';
+import { usePersistFn } from '@/ui/hooks/basic/use-persist-fn';
 import { useEventEmitter } from 'ahooks';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export enum EVENT_TYPE {
   WIN_REGIS = 'win_regis',
@@ -61,6 +62,52 @@ function useWindowModel() {
   const [windowMap, setWindowMap] = useState<WindowMapType>({});
   const [containerSize, setContainerSize] = useState<SizeType>();
 
+  subscribe$(EVENT_TYPE.WIN_FOCUS, (val) => {
+    setZLevelArr((v) => {
+      let index = v.indexOf(val?.id);
+      if (~index) {
+        v.splice(index, 1);
+        v.unshift(val?.id);
+        setActiveWindowId(val?.id);
+        return [...v];
+      } else {
+        return v;
+      }
+    });
+
+    if (!windowMap[val?.id]?.visible) {
+      setWindowMap((map) => {
+        if (map[val?.id]) {
+          map[val?.id].visible = true;
+        }
+        return { ...map };
+      });
+    }
+  });
+
+  subscribe$(EVENT_TYPE.APP_START, (val) => {
+    if (!val) return;
+    if (windowMap[val.id]) {
+      // 已存在
+      console.info('application loaded');
+    } else {
+      setWindowMap((map) => {
+        map[val.id] = {
+          visible: true,
+        };
+        return { ...map };
+      });
+
+      setZLevelArr((v) => {
+        if (~v.indexOf(val?.id)) {
+          return v;
+        }
+        v.push(val?.id);
+        return [...v];
+      });
+    }
+  });
+
   return {
     emit$,
     subscribe$,
@@ -69,6 +116,7 @@ function useWindowModel() {
     activeWindowId,
     setActiveWindowId,
     zlevelArr,
+    windowMap,
   };
 }
 
