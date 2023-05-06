@@ -2,21 +2,26 @@
   position: absolute;
   border: 1px solid #c12c1f;
   border-radius: var(--box-radius);
-  overflow: hidden;
+  overflow: auto;
+  resize: both;
+  box-shadow: 0 0 10px #9aa7b1;
+  min-width: 170px;
+  min-height: 70px;
 }
 
 .window-box__header {
   background-color: #fff;
   height: 20px;
 
-  display: flex;
   font-size: 12px;
   padding: 5px;
+  text-align: center;
 
   cursor: move;
 
   .window-box__header__ctrl {
     display: flex;
+    position: absolute;
 
     .window-box__header__ctrl__item {
       display: flex;
@@ -46,8 +51,8 @@
   }
 
   .window-box__header__title {
-    margin: 0 15px;
-    min-width: 70px;
+    margin: 0;
+    display: inline-block;
     cursor: auto;
   }
 }

@@ -128,7 +128,9 @@ export default function WindowBox({
             <img src={minusSvg} alt="ctrl_minus" />
           </div>
         </div>
-        <div className={styles['window-box__header__title']}>app-name</div>
+        <div className={styles['window-box__header__title']} onMouseDown={(e) => e.stopPropagation()}>
+          app-name
+        </div>
       </div>
       {children}
     </div>
