@@ -35,12 +35,12 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         ]}
       ></ModeSwitcher>
       <WindowLayout>
-        <WindowBox windowName="baidu">
+        {/* <WindowBox windowName="baidu">
           <IframeRender url="https://www.baidu.com"></IframeRender>
         </WindowBox>
         <WindowBox windowName="bilibili">
           <IframeRender url="https://www.bilibili.com"></IframeRender>
-        </WindowBox>
+        </WindowBox> */}
       </WindowLayout>
       <ContextMenu></ContextMenu>
     </Background>

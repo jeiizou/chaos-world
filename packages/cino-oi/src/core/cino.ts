@@ -1,3 +1,4 @@
+import { CinoAppConfig, CinoApplication } from './cino-application';
 import { CinoContext } from './cino-context';
 
 export interface CinoConfig {
@@ -8,34 +9,20 @@ const defaultCinoConfig = {
   mode: 'default',
 };
 
-export interface CinoAppConfig {
-  /**
-   * 应用名称
-   */
-  name: string;
-  /**
-   * 激活的钩子
-   * @param context
-   * @returns
-   */
-  onActivate: (context: CinoContext) => void;
-  /**
-   * 失活的钩子
-   * @param context
-   * @returns
-   */
-  onDeactivate?: (context: CinoContext) => void;
-  /**
-   * 安装以后初始化的钩子
-   * @param context
-   * @returns
-   */
-  onInitialize?: (context: CinoContext) => void;
-}
-
 export class Cino {
-  constructor(config?: CinoConfig) {
-    const lConfig = Object.assign({}, defaultCinoConfig, config);
+  #apps: Map<string, CinoApplication> = new Map();
+  #config: CinoConfig;
+  #context: CinoContext;
+
+  /**
+   * cino single-mode instance object
+   */
+  static instance: Cino;
+  static getInstance(config?: CinoConfig) {
+    if (!this.instance) {
+      this.instance = new Cino(config);
+    }
+    return this.instance;
   }
 
   /**
@@ -44,16 +31,31 @@ export class Cino {
    * @returns
    */
   static createApp(config: CinoAppConfig) {
-    return config;
+    const app = new CinoApplication(config);
+    return app;
+  }
+
+  constructor(config?: CinoConfig) {
+    this.#config = Object.assign({}, defaultCinoConfig, config);
+    this.#context = new CinoContext();
   }
 
   /**
    * install an application to cino
    */
-  install() {}
+  install(app: CinoApplication) {
+    // emit `activate` event
+    app.install(this.#context);
+    this.#apps.set(app.getId(), app);
+  }
 
   /**
    * uninstall an application from cino
    */
-  uninstall() {}
+  uninstall(appId: string) {
+    const app = this.#apps.get(appId);
+    // emit `deactivate` event
+    app?.deactivate(this.#context);
+    this.#apps.delete(appId);
+  }
 }
