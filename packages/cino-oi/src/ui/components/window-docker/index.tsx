@@ -7,13 +7,16 @@ import AppSvg from '@/common/assets/imgs/app.svg';
 
 type WindowDockerProps = {
   position?: string;
+  children?: React.ReactNode;
 };
 
-export default function WindowDocker({ position }: WindowDockerProps): React.ReactElement {
+export default function WindowDocker({ position, children }: WindowDockerProps): React.ReactElement {
   const { windowMap, emit$ } = WindowModel.useContext();
 
   return (
     <div className={styles['window-docker']}>
+      <div className={styles['window-docker__stable-container']}>{children}</div>
+
       {Object.keys(windowMap).map((windowKey) => (
         <div
           key={windowKey}

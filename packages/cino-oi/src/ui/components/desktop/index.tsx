@@ -9,6 +9,8 @@ import WindowLayout from '../window-layout';
 import WindowBox from '../window-box';
 import ContextMenu from '../contextmenu';
 import IframeRender from '../app-render/iframe-render';
+import WindowDocker from '../window-docker';
+import WindowDrawer from '../window-drawer';
 
 type DesktopProps = {
   /**
@@ -41,7 +43,11 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         <WindowBox windowName="bilibili">
           <IframeRender url="https://www.bilibili.com"></IframeRender>
         </WindowBox> */}
+        <WindowDocker>
+          <WindowDrawer></WindowDrawer>
+        </WindowDocker>
       </WindowLayout>
+      {/* 右键菜单 */}
       <ContextMenu></ContextMenu>
     </Background>
   );

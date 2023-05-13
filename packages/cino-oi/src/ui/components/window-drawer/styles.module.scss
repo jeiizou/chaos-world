@@ -1,0 +1,5 @@
+@import './../../global.scss';
+
+.window-docker__item {
+  @extend .app_icon;
+}

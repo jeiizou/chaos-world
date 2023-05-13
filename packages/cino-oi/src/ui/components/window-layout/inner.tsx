@@ -50,7 +50,6 @@ export default function WindowLayoutInner({ children }: WindowLayoutInnerProps):
         ref={containerDom}
       >
         {children}
-        <WindowDocker></WindowDocker>
       </div>
     </>
   );

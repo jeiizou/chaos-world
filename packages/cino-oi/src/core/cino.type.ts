@@ -8,11 +8,38 @@ export interface CinoAppInfo {
    */
   id?: string;
   /**
-   * 渲染类型
-   */
-  renderType?: 'iframe' | 'html' | 'react' | 'micro-app';
-  /**
    * 资源地址
    */
   source: string;
+}
+
+export interface ViewConfig {
+  /**
+   * 窗口标题
+   */
+  title: string;
+  /**
+   * 窗口尺寸
+   */
+  size?: Partial<{
+    width: string | number;
+    height: string | number;
+    maxWidth: string | number;
+    maxHeight: string | number;
+    minWidth: string | number;
+    minHeight: string | number;
+  }>;
+  /**
+   * 容器
+   */
+  container: string | React.ReactNode | React.ReactElement;
+  /**
+   * 渲染类型
+   */
+  renderType?: 'iframe' | 'html' | 'react' | 'micro-app';
+}
+
+export interface ViewInfo {
+  config: ViewConfig;
+  appId: string;
 }

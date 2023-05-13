@@ -1,3 +1,5 @@
+@import './../../global.scss';
+
 $size: 30px;
 $statusSize: 8px;
 
@@ -14,22 +16,25 @@ $statusSize: 8px;
   display: flex;
 }
 
-.window-docker__item {
-  background-color: #efefef;
-  width: $size;
-  height: $size;
-  border-radius: $size/2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #efefef;
-  cursor: pointer;
+.window-docker__stable-container {
   position: relative;
-
-  & > img {
-    width: $size * 0.65;
-    height: $size * 0.65;
+  padding-right: 10px;
+  margin-right: 10px;
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 2px;
+    background-color: #eaeaea;
+    border-radius: 1px;
+    right: 0;
+    top: 0;
   }
+}
+
+.window-docker__item {
+  @extend .app_icon;
 
   &:hover {
     background-color: #aaa;

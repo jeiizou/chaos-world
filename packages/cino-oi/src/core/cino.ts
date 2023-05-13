@@ -55,7 +55,15 @@ export class Cino {
   uninstall(appId: string) {
     const app = this.#apps.get(appId);
     // emit `deactivate` event
-    app?.deactivate(this.#context);
+    app?.deactivate();
     this.#apps.delete(appId);
+  }
+
+  getViews() {
+    return this.#context.getViewMap();
+  }
+
+  getApps() {
+    return this.#apps;
   }
 }

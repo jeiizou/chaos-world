@@ -1,3 +1,4 @@
+import { AppContext } from './app-context';
 import { CinoContext } from './cino-context';
 import { CinoLog } from './cino-log';
 
@@ -22,24 +23,25 @@ export interface CinoAppConfig {
    * @param context
    * @returns
    */
-  onActivate: (context: CinoContext) => void;
+  onActivate: (context: AppContext) => void;
   /**
    * 失活的钩子
    * @param context
    * @returns
    */
-  onDeactivate?: (context: CinoContext) => void;
+  onDeactivate?: (context: AppContext) => void;
   /**
    * 安装以后初始化的钩子
    * @param context
    * @returns
    */
-  onInitialize?: (context: CinoContext) => void;
+  onInitialize?: (context: AppContext) => void;
 }
 
 export class CinoApplication {
   private appConfig: CinoAppConfig;
   private appState: CinoAppStatus;
+  private appContext: AppContext | undefined;
 
   constructor(config: CinoAppConfig) {
     this.appState = CinoAppStatus.original;
@@ -51,32 +53,6 @@ export class CinoApplication {
   }
 
   /**
-   * activate self
-   */
-  activate(context: CinoContext) {
-    if (this.appState === CinoAppStatus.activate) {
-      CinoLog.warn('app is already activated');
-      return;
-    }
-
-    this.appState = CinoAppStatus.activate;
-    this.appConfig.onActivate?.(context);
-  }
-
-  /**
-   * deactivate self
-   */
-  deactivate(context: CinoContext) {
-    if (this.appState !== CinoAppStatus.activate) {
-      CinoLog.warn('app is not activated');
-      return;
-    }
-
-    this.appState = CinoAppStatus.deactivate;
-    this.appConfig.onDeactivate?.(context);
-  }
-
-  /**
    * install app
    */
   install(context: CinoContext) {
@@ -85,7 +61,53 @@ export class CinoApplication {
       return;
     }
 
+    // init app stats and others
     this.appState = CinoAppStatus.initialized;
-    this.appConfig.onInitialize?.(context);
+    this.appContext = new AppContext({
+      self: this,
+      context,
+    });
+
+    // init app-context
+    // emit hooks
+    this.appConfig.onInitialize?.(this.appContext);
+  }
+
+  /**
+   * activate self
+   */
+  activate() {
+    if (this.appState === CinoAppStatus.activate) {
+      CinoLog.warn('app is already activated');
+      return;
+    }
+
+    this.appState = CinoAppStatus.activate;
+
+    if (!this.appContext) {
+      CinoLog.warn('app is not installed');
+      return;
+    }
+
+    this.appConfig.onActivate?.(this.appContext);
+  }
+
+  /**
+   * deactivate self
+   */
+  deactivate() {
+    if (this.appState !== CinoAppStatus.activate) {
+      CinoLog.warn('app is not activated');
+      return;
+    }
+
+    this.appState = CinoAppStatus.deactivate;
+
+    if (!this.appContext) {
+      CinoLog.warn('app is not installed');
+      return;
+    }
+
+    this.appConfig.onDeactivate?.(this.appContext);
   }
 }
