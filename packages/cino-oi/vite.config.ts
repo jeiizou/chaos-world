@@ -13,6 +13,13 @@ export default defineConfig({
       '@core': join(__dirname, 'src/core'),
     },
   },
+  css: {
+    modules: {
+      generateScopedName(name) {
+        return `cino-${name}`;
+      },
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/lib-entry.ts'),

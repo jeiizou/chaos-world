@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 html,
 body {
   padding: 0;
@@ -15,7 +17,7 @@ $size: 30px;
   background-color: #efefef;
   width: $size;
   height: $size;
-  border-radius: $size/2;
+  border-radius: math.div($size, 2);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,0 +1,69 @@
+@use 'sass:math';
+
+$smallSize: (small, 24px);
+$mediumSize: (medium, 30px);
+$largeSize: (large, 36px);
+
+.app_icon {
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // flex-direction: column;
+  border: 1px solid #efefef;
+  cursor: pointer;
+  position: relative;
+  // margin-bottom: 12px;
+
+  &:hover {
+    .app_icon__name {
+      display: block;
+    }
+  }
+
+  .app_icon__name {
+    font-size: 12px;
+    line-height: 1;
+    position: absolute;
+    white-space: nowrap;
+    top: -28px;
+    transform: scale(0.8);
+    text-overflow: ellipsis;
+    background-color: #efefef;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+
+    display: none;
+
+    &::after {
+      content: '';
+      z-index: 0;
+      position: absolute;
+      width: 0;
+      height: 0;
+      bottom: -6px;
+      left: calc(50% - 5px);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid #efefef;
+    }
+  }
+
+  & + & {
+    margin-left: 8px;
+  }
+
+  @each $name, $size in $smallSize, $mediumSize, $largeSize {
+    &--#{$name} {
+      width: $size;
+      height: $size;
+      border-radius: math.div($size, 2);
+
+      & > img {
+        width: $size * 0.65;
+        height: $size * 0.65;
+      }
+    }
+  }
+}

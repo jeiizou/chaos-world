@@ -43,9 +43,7 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         <WindowBox windowName="bilibili">
           <IframeRender url="https://www.bilibili.com"></IframeRender>
         </WindowBox> */}
-        <WindowDocker>
-          <WindowDrawer></WindowDrawer>
-        </WindowDocker>
+        <WindowDocker>{/* <WindowDrawer></WindowDrawer> */}</WindowDocker>
       </WindowLayout>
       {/* 右键菜单 */}
       <ContextMenu></ContextMenu>

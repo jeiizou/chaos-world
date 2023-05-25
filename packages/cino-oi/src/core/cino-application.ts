@@ -19,6 +19,32 @@ export interface CinoAppConfig {
    */
   id: string;
   /**
+   * 配置项
+   */
+  config: {
+    icon?: {
+      src?: '';
+    };
+    /**
+     * 启动相关配置
+     */
+    boot?: {
+      /**
+       * 启动类型
+       */
+      type: 'docker';
+      /**
+       * 该启动类型的其他配置项
+       */
+      [key: string]: any;
+    }[];
+  };
+
+  /**
+   * 应用的静态钩子
+   */
+
+  /**
    * 激活的钩子
    * @param context
    * @returns
@@ -48,8 +74,16 @@ export class CinoApplication {
     this.appConfig = Object.assign({}, config);
   }
 
+  get name() {
+    return this.appConfig.name;
+  }
+
   getId() {
     return this.appConfig.id;
+  }
+
+  getConfig() {
+    return this.appConfig.config;
   }
 
   /**

@@ -1,3 +1,5 @@
+import { CinoApplication } from './cino-application';
+
 export interface CinoAppInfo {
   /**
    * 应用名称
@@ -42,4 +44,12 @@ export interface ViewConfig {
 export interface ViewInfo {
   config: ViewConfig;
   appId: string;
+}
+
+export enum CinoEventsName {
+  AppInstall = 'app-install',
+}
+
+export interface CinoEventsHandle {
+  [CinoEventsName.AppInstall]: (params: { id: string; app: CinoApplication }) => void;
 }

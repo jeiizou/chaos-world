@@ -1,5 +1,7 @@
 import { CinoAppConfig, CinoApplication } from './cino-application';
 import { CinoContext } from './cino-context';
+import { CinoEventBus } from './cino-events';
+import { CinoEventsHandle, CinoEventsName } from './cino.type';
 
 export interface CinoConfig {
   mode: string;
@@ -13,6 +15,7 @@ export class Cino {
   #apps: Map<string, CinoApplication> = new Map();
   #config: CinoConfig;
   #context: CinoContext;
+  #event: CinoEventBus<CinoEventsName, CinoEventsHandle>;
 
   /**
    * cino single-mode instance object
@@ -38,6 +41,7 @@ export class Cino {
   constructor(config?: CinoConfig) {
     this.#config = Object.assign({}, defaultCinoConfig, config);
     this.#context = new CinoContext();
+    this.#event = new CinoEventBus();
   }
 
   /**
@@ -45,8 +49,13 @@ export class Cino {
    */
   install(app: CinoApplication) {
     // emit `activate` event
+    const appId = app.getId();
     app.install(this.#context);
-    this.#apps.set(app.getId(), app);
+    this.#apps.set(appId, app);
+    this.#event.emit(CinoEventsName.AppInstall, {
+      id: appId,
+      app,
+    });
   }
 
   /**
@@ -65,5 +74,9 @@ export class Cino {
 
   getApps() {
     return this.#apps;
+  }
+
+  getEvents() {
+    return this.#event;
   }
 }

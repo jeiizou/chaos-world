@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import { EVENT_TYPE, WindowModel } from '../window-layout/window-model';
+import { CinoModel } from '@/ui/hooks/use-cino';
 import classnames from 'classnames';
 
 import AppSvg from '@/common/assets/imgs/app.svg';
+import { CinoEventsName } from '@/core/cino.type';
+import { CinoApplication } from '@/lib-entry';
+import AppIcon from '../app-icon';
 
 type WindowDockerProps = {
   position?: string;
@@ -12,10 +16,56 @@ type WindowDockerProps = {
 
 export default function WindowDocker({ position, children }: WindowDockerProps): React.ReactElement {
   const { windowMap, emit$ } = WindowModel.useContext();
+  const { cino } = CinoModel.useContext();
+
+  const [dockerApps, setDockerApps] = useState<Record<string, CinoApplication>>({});
+
+  const getDockerBootApps = () => {
+    if (!cino) {
+      return;
+    }
+
+    const apps: Record<string, CinoApplication> = {};
+
+    cino.getApps().forEach((app) => {
+      const config = app.getConfig();
+
+      config?.boot?.forEach((bootConfig) => {
+        if (bootConfig.type === 'docker') {
+          apps[app.getId()] = app;
+        }
+      });
+    });
+
+    setDockerApps(apps);
+  };
+
+  useEffect(() => {
+    if (cino) {
+      cino?.getEvents().on(CinoEventsName.AppInstall, ({ id, app }) => {
+        if (!dockerApps[id]) {
+          setDockerApps((oldMapValue) => {
+            oldMapValue[id] = app;
+            return {
+              ...oldMapValue,
+            };
+          });
+        }
+      });
+
+      getDockerBootApps();
+    }
+  }, [cino]);
 
   return (
     <div className={styles['window-docker']}>
-      <div className={styles['window-docker__stable-container']}>{children}</div>
+      <div className={styles['window-docker__stable-container']}>
+        {Object.values(dockerApps)?.map((app) => {
+          return <AppIcon app={app} key={app.getId()}></AppIcon>;
+        })}
+
+        {children}
+      </div>
 
       {Object.keys(windowMap).map((windowKey) => (
         <div
