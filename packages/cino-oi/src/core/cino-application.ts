@@ -78,6 +78,10 @@ export class CinoApplication {
     return this.appConfig.name;
   }
 
+  get status() {
+    return this.appState;
+  }
+
   getId() {
     return this.appConfig.id;
   }

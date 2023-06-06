@@ -11,6 +11,7 @@ import ContextMenu from '../contextmenu';
 import IframeRender from '../app-render/iframe-render';
 import WindowDocker from '../window-docker';
 import WindowDrawer from '../window-drawer';
+import WindowViews from '../window-views';
 
 type DesktopProps = {
   /**
@@ -35,7 +36,7 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
             name: '网格',
           },
         ]}
-      ></ModeSwitcher>
+      />
       <WindowLayout>
         {/* <WindowBox windowName="baidu">
           <IframeRender url="https://www.baidu.com"></IframeRender>
@@ -43,10 +44,11 @@ export default function Desktop({ background }: DesktopProps): React.ReactElemen
         <WindowBox windowName="bilibili">
           <IframeRender url="https://www.bilibili.com"></IframeRender>
         </WindowBox> */}
-        <WindowDocker>{/* <WindowDrawer></WindowDrawer> */}</WindowDocker>
+        <WindowViews />
+        <WindowDocker />
       </WindowLayout>
       {/* 右键菜单 */}
-      <ContextMenu></ContextMenu>
+      <ContextMenu />
     </Background>
   );
 }

@@ -42,7 +42,7 @@ export default function WindowDocker({ position, children }: WindowDockerProps):
 
   useEffect(() => {
     if (cino) {
-      cino?.getEvents().on(CinoEventsName.AppInstall, ({ id, app }) => {
+      cino.events.on(CinoEventsName.AppInstall, ({ id, app }) => {
         if (!dockerApps[id]) {
           setDockerApps((oldMapValue) => {
             oldMapValue[id] = app;

@@ -39,6 +39,10 @@ export interface ViewConfig {
    * 渲染类型
    */
   renderType?: 'iframe' | 'html' | 'react' | 'micro-app';
+  /**
+   * iframe 类型下的数据源
+   */
+  url?: string;
 }
 
 export interface ViewInfo {
@@ -47,9 +51,17 @@ export interface ViewInfo {
 }
 
 export enum CinoEventsName {
+  /**
+   * 应用被安装
+   */
   AppInstall = 'app-install',
+  /**
+   * 注册了一个新的视口
+   */
+  RegisterView = 'register-view',
 }
 
 export interface CinoEventsHandle {
   [CinoEventsName.AppInstall]: (params: { id: string; app: CinoApplication }) => void;
+  [CinoEventsName.RegisterView]: (params: { viewId: string; info: ViewInfo }) => void;
 }

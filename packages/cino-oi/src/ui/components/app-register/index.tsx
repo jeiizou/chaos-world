@@ -12,7 +12,6 @@ export default function AppRegister({}: AppRegisterProps): React.ReactElement {
 
   useEffect(() => {
     if (cino) {
-      console.log('install');
       cino.install(AppBootstrapApp);
       cino.install(SysSettingApp);
     }

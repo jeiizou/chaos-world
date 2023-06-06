@@ -40,8 +40,8 @@ export class Cino {
 
   constructor(config?: CinoConfig) {
     this.#config = Object.assign({}, defaultCinoConfig, config);
-    this.#context = new CinoContext();
     this.#event = new CinoEventBus();
+    this.#context = new CinoContext(this.#event);
   }
 
   /**
@@ -77,6 +77,10 @@ export class Cino {
   }
 
   getEvents() {
+    return this.#event;
+  }
+
+  get events() {
     return this.#event;
   }
 }

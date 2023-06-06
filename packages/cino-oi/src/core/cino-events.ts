@@ -89,7 +89,7 @@ export class CinoEventBus<T extends string | number, U extends Record<T, any>> {
       if (cbs) {
         for (let i = 0; i < cbs.length; i++) {
           try {
-            cbs[i].apply(null, [...params].slice(1));
+            cbs[i].apply(null, [...params]);
           } catch (e) {
             new Error(`EventBus: Event handler for "${event}"\n${e}`);
           }
