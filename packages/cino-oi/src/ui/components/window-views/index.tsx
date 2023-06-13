@@ -36,7 +36,7 @@ export default function WindowViews({}: WindowViewsProps): React.ReactElement {
         const viewInfo = views[viewKey];
 
         return (
-          <WindowBox windowName={viewInfo.config.title} key={viewKey}>
+          <WindowBox windowName={viewInfo.config.title} key={viewKey} windowId={viewKey}>
             {viewInfo.config.renderType === 'iframe' && viewInfo.config.url && (
               <IframeRender url={viewInfo.config.url}></IframeRender>
             )}

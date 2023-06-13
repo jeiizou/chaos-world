@@ -2,6 +2,7 @@ import { CinoAppStatus, CinoApplication } from '@/lib-entry';
 import React, { useMemo } from 'react';
 import style from './index.module.scss';
 import classNames from 'classnames';
+import { EVENT_TYPE, WindowModel } from '../window-layout/window-model';
 
 type AppIconProps = {
   size?: 'small' | 'medium' | 'large';
@@ -9,15 +10,17 @@ type AppIconProps = {
 };
 
 export default function AppIcon({ app, size = 'medium' }: AppIconProps): React.ReactElement {
+  const { emit$ } = WindowModel.useContext();
   const iconSrc = useMemo(() => {
     return app.getConfig()?.icon?.src;
   }, [app]);
 
   const onIconClick = () => {
     if (app.status === CinoAppStatus.activate) {
-      // TODO
-      console.log('app 已经激活, 换别的操作');
+      // app 已激活, 执行聚焦操作
+      emit$(EVENT_TYPE.WIN_FOCUS, { id: app.getId() });
     } else {
+      // 激活该APP
       app.activate();
     }
   };

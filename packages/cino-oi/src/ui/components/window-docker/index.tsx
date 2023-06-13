@@ -24,24 +24,21 @@ export default function WindowDocker({ position, children }: WindowDockerProps):
     if (!cino) {
       return;
     }
-
     const apps: Record<string, CinoApplication> = {};
-
     cino.getApps().forEach((app) => {
       const config = app.getConfig();
-
       config?.boot?.forEach((bootConfig) => {
         if (bootConfig.type === 'docker') {
           apps[app.getId()] = app;
         }
       });
     });
-
     setDockerApps(apps);
   };
 
   useEffect(() => {
     if (cino) {
+      // 监听app的安装事件
       cino.events.on(CinoEventsName.AppInstall, ({ id, app }) => {
         if (!dockerApps[id]) {
           setDockerApps((oldMapValue) => {
@@ -63,10 +60,9 @@ export default function WindowDocker({ position, children }: WindowDockerProps):
         {Object.values(dockerApps)?.map((app) => {
           return <AppIcon app={app} key={app.getId()}></AppIcon>;
         })}
-
         {children}
       </div>
-
+      {/* 当前窗口管理 */}
       {Object.keys(windowMap).map((windowKey) => (
         <div
           key={windowKey}
