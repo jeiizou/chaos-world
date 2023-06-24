@@ -8,12 +8,14 @@ import closeSvg from '@/common/assets/imgs/close.svg';
 import minusSvg from '@/common/assets/imgs/minus.svg';
 import { EVENT_TYPE, WindowModel } from '../window-layout/window-model';
 import { useMove } from '@/ui/hooks/basic/use-move';
+import { ViewInfo } from '@/core/cino.type';
 
 type WindowBoxProps = {
   children?: React.ReactNode;
   defaultPosition?: [number, number];
   windowId?: string;
   windowName?: string;
+  viewInfo?: ViewInfo;
 };
 
 const paddingOffset = 10;
@@ -23,6 +25,7 @@ export default function WindowBox({
   defaultPosition = [paddingOffset, paddingOffset],
   windowId: id,
   windowName = 'app-name',
+  viewInfo,
 }: WindowBoxProps): React.ReactElement {
   const windowId = useMemo(() => {
     return id ?? nanoid();
@@ -76,7 +79,8 @@ export default function WindowBox({
 
   useEffect(() => {
     if (emit$ && windowId && !windowMap[windowId]) {
-      emit$(EVENT_TYPE.APP_START, { id: windowId, name: windowName });
+      // 注册窗口
+      emit$(EVENT_TYPE.APP_START, { id: windowId, name: windowName, viewInfo });
     }
   }, [windowId, emit$, windowName]);
 

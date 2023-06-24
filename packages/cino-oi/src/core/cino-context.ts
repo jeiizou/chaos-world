@@ -7,20 +7,33 @@ export class CinoContext {
 
   constructor(private event: CinoEventBus<CinoEventsName, CinoEventsHandle>) {}
 
-  public registerView(info: ViewInfo): void {
-    const viewId = nanoid();
-    this.views.set(`${info.appId}_${viewId}`, info);
+  public registerView(info: ViewInfo): string {
+    const viewId = `${info.appId}_${nanoid()}`;
+    this.views.set(viewId, info);
     this.event.emit(CinoEventsName.RegisterView, {
       viewId,
       info,
     });
+    return viewId;
   }
 
   public getViewMap() {
     return this.views;
   }
 
+  /**
+   * TODO: 获取到的views有问题
+   * @param appId
+   * @returns
+   */
   public getAllViewWithApp(appId: string) {
-    return Object.values(this.views).filter((i) => i.appId === appId);
+    const thisAppView: Record<string, ViewInfo> = {};
+    for (const key of Object.keys(this.views)) {
+      const view = this.views.get(key);
+      if (view?.appId === appId) {
+        thisAppView[key] = view;
+      }
+    }
+    return thisAppView;
   }
 }

@@ -1,3 +1,4 @@
+import { ViewInfo } from '@/core/cino.type';
 import { createModel } from '@/ui/hooks/basic/use-model';
 import { usePersistFn } from '@/ui/hooks/basic/use-persist-fn';
 import { useEventEmitter } from 'ahooks';
@@ -19,12 +20,18 @@ export enum EVENT_TYPE {
   APP_INSTALLED = 'app_installed',
 }
 
+export type WindowInfo = {
+  // 窗口是否可见
+  visible: boolean;
+  // 窗口名称
+  name: string;
+  // view info
+  viewInfo?: ViewInfo;
+};
+
 export type WindowMapType = Record<
   string, // window key
-  {
-    visible: boolean;
-    name: string;
-  }
+  WindowInfo
 >;
 
 export const DESKTOP_CONFIG = {
@@ -95,6 +102,7 @@ function useWindowModel() {
         map[val.id] = {
           visible: true,
           name: val.name,
+          viewInfo: val.viewInfo,
         };
         return { ...map };
       });

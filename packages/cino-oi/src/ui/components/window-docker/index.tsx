@@ -50,6 +50,7 @@ export default function WindowDocker({ position, children }: WindowDockerProps):
         }
       });
 
+      // 获取所有注册到docker的app
       getDockerBootApps();
     }
   }, [cino]);
@@ -63,20 +64,22 @@ export default function WindowDocker({ position, children }: WindowDockerProps):
         {children}
       </div>
       {/* 当前窗口管理 */}
-      {Object.keys(windowMap).map((windowKey) => (
-        <div
-          key={windowKey}
-          className={classnames(styles['window-docker__item'], {
-            [styles['window-docker__item--hidden']]: !windowMap[windowKey].visible,
-          })}
-          title={windowMap[windowKey].name}
-          onClick={() => {
-            emit$(EVENT_TYPE.WIN_FOCUS, { id: windowKey });
-          }}
-        >
-          <img src={AppSvg} alt={windowMap[windowKey].name} />
-        </div>
-      ))}
+      {Object.keys(windowMap)
+        .filter((winKey) => !dockerApps[windowMap[winKey].viewInfo?.appId ?? ''])
+        .map((windowKey) => (
+          <div
+            key={windowKey}
+            className={classnames(styles['window-docker__item'], {
+              [styles['window-docker__item--hidden']]: !windowMap[windowKey].visible,
+            })}
+            title={windowMap[windowKey].name}
+            onClick={() => {
+              emit$(EVENT_TYPE.WIN_FOCUS, { id: windowKey });
+            }}
+          >
+            <img src={AppSvg} alt={windowMap[windowKey].name} />
+          </div>
+        ))}
     </div>
   );
 }

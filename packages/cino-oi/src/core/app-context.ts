@@ -12,11 +12,17 @@ export class AppContext {
 
   /**
    * 创建一个窗口
+   * @param vieConfig
+   * @returns viewId
    */
   createView(vieConfig: ViewConfig) {
-    this.context.registerView({
+    return this.context.registerView({
       config: vieConfig,
       appId: this.self.getId(),
     });
   }
+
+  // activeWindow(viewId: string) {
+
+  // }
 }

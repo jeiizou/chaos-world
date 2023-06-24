@@ -148,4 +148,12 @@ export class CinoApplication {
 
     this.appConfig.onDeactivate?.(this.appContext);
   }
+
+  /**
+   * 获取当前app的所有view
+   * @returns
+   */
+  getViews() {
+    return this.appContext?.context.getAllViewWithApp(this.getId());
+  }
 }

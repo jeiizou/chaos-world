@@ -24,7 +24,8 @@ export const AppBootstrapApp = Cino.createApp({
     // }
   },
   onActivate: (app) => {
-    app.createView({
+    // 激活应用的时候创建一个窗口
+    const viewId = app.createView({
       title: '应用启动器',
       container: <div>启动APP</div>,
       renderType: 'react',

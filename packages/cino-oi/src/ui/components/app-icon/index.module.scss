@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:list';
 
 $smallSize: (small, 24px);
 $mediumSize: (medium, 30px);
@@ -18,6 +19,20 @@ $largeSize: (large, 36px);
   &:hover {
     .app_icon__name {
       display: block;
+    }
+  }
+
+  &--hidden {
+    $statusSize: 10px;
+    &::after {
+      position: absolute;
+      right: math.div(-$statusSize, 5);
+      top: math.div(-$statusSize, 5);
+      content: '';
+      width: $statusSize;
+      height: $statusSize;
+      border-radius: math.div($statusSize, 2);
+      background-color: red;
     }
   }
 
