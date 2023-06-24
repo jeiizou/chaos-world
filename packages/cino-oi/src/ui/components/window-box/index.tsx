@@ -116,6 +116,8 @@ export default function WindowBox({
         userSelect: isMoving ? 'none' : undefined,
         zIndex: winLevel,
         display: windowInfo?.visible ? undefined : 'none',
+        width: viewInfo?.config.size?.width,
+        height: viewInfo?.config.size?.height,
       }}
       ref={domHandle}
       onMouseUp={endMoving}

@@ -7,6 +7,10 @@ export class CinoContext {
 
   constructor(private event: CinoEventBus<CinoEventsName, CinoEventsHandle>) {}
 
+  public getEvent() {
+    return this.event;
+  }
+
   public registerView(info: ViewInfo): string {
     const viewId = `${info.appId}_${nanoid()}`;
     this.views.set(viewId, info);

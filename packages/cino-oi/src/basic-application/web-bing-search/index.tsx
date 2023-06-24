@@ -15,12 +15,12 @@ export const BingSearchApp = Cino.createApp({
   onActivate: (app) => {
     // 激活应用的时候创建一个窗口
     app.createView({
-      title: '应用启动器',
+      title: 'Search Bing',
       renderType: 'iframe',
       url: 'https://www.bing.com',
       size: {
-        width: 200,
-        height: 200,
+        width: 800,
+        height: 400,
       },
     });
   },

@@ -111,7 +111,7 @@ function useWindowModel() {
         if (~v.indexOf(val?.id)) {
           return v;
         }
-        v.push(val?.id);
+        v.unshift(val?.id);
         return [...v];
       });
     }

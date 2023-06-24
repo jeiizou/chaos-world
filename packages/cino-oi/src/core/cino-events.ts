@@ -15,7 +15,7 @@ export class CinoEventBus<T extends string | number, U extends Record<T, any>> {
    * @param event 事件
    * @param fn 处理函数
    */
-  on(event: T | T[], fn: U[T]) {
+  on<K extends T>(event: K, fn: U[K]) {
     if (Array.isArray(event)) {
       for (let i = 0; i < event.length; i++) {
         this.on(event[i], fn);
@@ -26,7 +26,7 @@ export class CinoEventBus<T extends string | number, U extends Record<T, any>> {
     }
   }
 
-  off(event?: T | T[], fn?: U[T]) {
+  off<K extends T>(event?: T, fn?: U[K]) {
     // 什么参数都不传, 表示清理所有事件
     if (!arguments.length) {
       this._events = {};

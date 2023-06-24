@@ -7,9 +7,14 @@ import { EVENT_TYPE, WindowInfo, WindowModel } from '../window-layout/window-mod
 type AppIconProps = {
   size?: 'small' | 'medium' | 'large';
   app: CinoApplication;
+  showName?: boolean;
 };
 
-export default function AppIcon({ app, size = 'medium' }: AppIconProps): React.ReactElement {
+export default function AppIcon({
+  app,
+  size = 'medium',
+  showName = false,
+}: AppIconProps): React.ReactElement {
   const { emit$, windowMap } = WindowModel.useContext();
   const iconSrc = useMemo(() => {
     return app.getConfig()?.icon?.src;
@@ -52,14 +57,17 @@ export default function AppIcon({ app, size = 'medium' }: AppIconProps): React.R
   };
 
   return (
-    <div
-      className={classNames(style.app_icon, `${style.app_icon}--${size}`, {
-        [style['app_icon--hidden']]: isHidden,
-      })}
-      onClick={onIconClick}
-    >
-      <img src={iconSrc} alt={app.name} />
-      <span className={style.app_icon__name}>{app.name}</span>
+    <div className={style.app_icon__container}>
+      <div
+        className={classNames(style.app_icon, `${style.app_icon}--${size}`, {
+          [style['app_icon--hidden']]: isHidden,
+        })}
+        onClick={onIconClick}
+      >
+        <img src={iconSrc} alt={app.name} />
+        <span className={style.app_icon__name}>{app.name}</span>
+      </div>
+      {showName && <div className={style['app_icon_show-name']}>{app.name}</div>}
     </div>
   );
 }

@@ -23,6 +23,10 @@ export const SysSettingApp = Cino.createApp({
       title: '系统设置',
       container: <SysSetting />,
       renderType: 'react',
+      size: {
+        width: 800,
+        height: 400,
+      },
     });
   },
 });

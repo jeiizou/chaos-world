@@ -5,6 +5,22 @@ $smallSize: (small, 24px);
 $mediumSize: (medium, 30px);
 $largeSize: (large, 36px);
 
+.app_icon__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  & + & {
+    margin-left: 8px;
+  }
+}
+
+.app_icon_show-name {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .app_icon {
   background-color: #efefef;
   display: flex;
@@ -36,39 +52,6 @@ $largeSize: (large, 36px);
     }
   }
 
-  .app_icon__name {
-    font-size: 12px;
-    line-height: 1;
-    position: absolute;
-    white-space: nowrap;
-    top: -28px;
-    transform: scale(0.8);
-    text-overflow: ellipsis;
-    background-color: #efefef;
-    padding: 5px;
-    border-radius: 4px;
-    z-index: 1;
-
-    display: none;
-
-    &::after {
-      content: '';
-      z-index: 0;
-      position: absolute;
-      width: 0;
-      height: 0;
-      bottom: -6px;
-      left: calc(50% - 5px);
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 6px solid #efefef;
-    }
-  }
-
-  & + & {
-    margin-left: 8px;
-  }
-
   @each $name, $size in $smallSize, $mediumSize, $largeSize {
     &--#{$name} {
       width: $size;
@@ -80,5 +63,34 @@ $largeSize: (large, 36px);
         height: $size * 0.65;
       }
     }
+  }
+}
+
+.app_icon__name {
+  font-size: 12px;
+  line-height: 1;
+  position: absolute;
+  white-space: nowrap;
+  top: -28px;
+  transform: scale(0.8);
+  text-overflow: ellipsis;
+  background-color: #efefef;
+  padding: 5px;
+  border-radius: 4px;
+  z-index: 1;
+
+  display: none;
+
+  &::after {
+    content: '';
+    z-index: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -6px;
+    left: calc(50% - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #efefef;
   }
 }

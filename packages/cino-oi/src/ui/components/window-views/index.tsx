@@ -17,10 +17,11 @@ export default function WindowViews({}: WindowViewsProps): React.ReactElement {
       // 获取当前已经注册的views
       const views = cino?.getViews();
       if (views) {
-        setViews(views);
+        const newViews: Record<string, ViewInfo> = {};
+        Object.keys(views).forEach((key) => (newViews[key] = views.get(key)!));
+        setViews(newViews);
       }
       cino.events.on(CinoEventsName.RegisterView, ({ viewId, info }) => {
-        console.log(viewId, info);
         setViews((oldViews) => {
           oldViews[viewId] = info;
           return {

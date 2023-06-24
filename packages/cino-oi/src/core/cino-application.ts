@@ -62,6 +62,10 @@ export interface CinoAppConfig {
    * @returns
    */
   onInitialize?: (context: AppContext) => void;
+  /**
+   * 剩余参数
+   */
+  [key: string]: any;
 }
 
 export class CinoApplication {

@@ -1,5 +1,8 @@
 import { Cino } from '@/lib-entry';
 import AppIconSvg from '@/common/assets/imgs/app.svg';
+import { CinoEventsName } from '@/core/cino.type';
+import AppIcon from '@/ui/components/app-icon';
+import AppBoot from './ui/App';
 
 export const AppBootstrapApp = Cino.createApp({
   id: 'app-bootstrap',
@@ -17,21 +20,28 @@ export const AppBootstrapApp = Cino.createApp({
     ],
   },
 
-  onInitialize: (app) => {
-    console.log('应用初始化');
-    // app.createDrawer(){
-
-    // }
+  appMap: {},
+  onInitialize(app) {
+    const event = app.context.getEvent();
+    event.on(CinoEventsName.AppInstall, ({ id, app: curApp }) => {
+      if (curApp.getId() == app.self.getId()) {
+        return;
+      }
+      if (curApp.getConfig().boot?.find((i) => i.type === 'docker')) {
+        return;
+      }
+      this.appMap[curApp.getId()] = curApp;
+    });
   },
-  onActivate: (app) => {
+  onActivate(app) {
     // 激活应用的时候创建一个窗口
     app.createView({
       title: '应用启动器',
-      container: <div>启动APP</div>,
+      container: <AppBoot appMap={this.appMap} />,
       renderType: 'react',
       size: {
-        width: 200,
-        height: 200,
+        width: 800,
+        height: 400,
       },
     });
   },
