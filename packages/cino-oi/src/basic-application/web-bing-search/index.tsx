@@ -1,34 +1,23 @@
 import { Cino } from '@/lib-entry';
 import AppIconSvg from '@/common/assets/imgs/app.svg';
 
-export const AppBootstrapApp = Cino.createApp({
-  id: 'app-bootstrap',
-  name: '应用启动器',
-
+export const BingSearchApp = Cino.createApp({
+  id: 'web-bing-search',
+  name: 'Bing搜索',
   config: {
     icon: {
       src: AppIconSvg,
     },
-    boot: [
-      {
-        type: 'docker',
-        persistence: true,
-      },
-    ],
   },
-
   onInitialize: (app) => {
-    console.log('应用初始化');
-    // app.createDrawer(){
-
-    // }
+    // console.log('应用初始化');
   },
   onActivate: (app) => {
     // 激活应用的时候创建一个窗口
     app.createView({
       title: '应用启动器',
-      container: <div>启动APP</div>,
-      renderType: 'react',
+      renderType: 'iframe',
+      url: 'https://www.bing.com',
       size: {
         width: 200,
         height: 200,

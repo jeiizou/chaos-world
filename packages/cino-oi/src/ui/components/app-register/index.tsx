@@ -1,5 +1,6 @@
 import { AppBootstrapApp } from '@/basic-application/app-bootstrap';
 import { SysSettingApp } from '@/basic-application/sys-setting';
+import { BingSearchApp } from '@/basic-application/web-bing-search';
 import { CinoModel } from '@/ui/hooks/use-cino';
 import React, { useEffect } from 'react';
 
@@ -14,6 +15,7 @@ export default function AppRegister({}: AppRegisterProps): React.ReactElement {
     if (cino) {
       cino.install(AppBootstrapApp);
       cino.install(SysSettingApp);
+      cino.install(BingSearchApp);
     }
   }, [cino]);
 
